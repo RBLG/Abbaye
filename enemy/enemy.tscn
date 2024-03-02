@@ -1,10 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccgpxeqgewnoj"]
+[gd_scene load_steps=8 format=3 uid="uid://ccgpxeqgewnoj"]
 
 [ext_resource type="Script" path="res://enemy/EnemySmall1.cs" id="1_r4c0r"]
 [ext_resource type="Texture2D" uid="uid://dsjjhxruydnkk" path="res://res/enemies/ennemy_small_1_sprite.png" id="2_ebk33"]
+[ext_resource type="PackedScene" uid="uid://bef0ed6cfi3do" path="res://Utility/hurtbox.tscn" id="3_hd363"]
+[ext_resource type="PackedScene" uid="uid://cpp7j7pp4hqx7" path="res://Utility/hitbox.tscn" id="4_ijocc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ngpsw"]
 radius = 5.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sxir3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3l3us"]
+radius = 7.0
 
 [node name="EnemySmall1" type="CharacterBody2D"]
 motion_mode = 1
@@ -17,3 +24,26 @@ hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ngpsw")
+
+[node name="WalkAnimTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="Hurtbox" parent="." instance=ExtResource("3_hd363")]
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("RectangleShape2D_sxir3")
+debug_color = Color(0.654902, 0.517647, 0, 0.419608)
+
+[node name="Hitbox" parent="." instance=ExtResource("4_ijocc")]
+position = Vector2(-3.46374, -2.49593)
+collision_layer = 2
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(3.46374, 2.49593)
+shape = SubResource("CircleShape2D_3l3us")
+debug_color = Color(0.988235, 0.109804, 0, 0.419608)
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]

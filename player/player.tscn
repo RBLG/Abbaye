@@ -1,11 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://bmt2tt204sxe"]
+[gd_scene load_steps=6 format=3 uid="uid://bmt2tt204sxe"]
 
 [ext_resource type="Script" path="res://player/Player.cs" id="1_cj6qb"]
 [ext_resource type="Texture2D" uid="uid://buuc38a2qxt68" path="res://res/player/player_sprite.png" id="2_naq10"]
+[ext_resource type="PackedScene" uid="uid://bef0ed6cfi3do" path="res://Utility/hurtbox.tscn" id="3_tdck1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d8j5h"]
-radius = 15.0
-height = 54.0
+radius = 8.0
+height = 40.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nmqqk"]
+radius = 12.0
+height = 48.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 motion_mode = 1
@@ -20,5 +25,25 @@ hframes = 2
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_d8j5h")
+
+[node name="WalkAnimTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="Hurtbox" parent="." instance=ExtResource("3_tdck1")]
+position = Vector2(-3.46374, -2.49593)
+collision_mask = 2
+type = 2
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(3.46374, 6.49593)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_nmqqk")
+debug_color = Color(0.980392, 0, 0.396078, 0.419608)
+
+[connection signal="Hurt" from="Hurtbox" to="." method="OnHurtboxHurt"]
+
+[editable path="Hurtbox"]

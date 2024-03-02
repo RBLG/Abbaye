@@ -1,39 +1,44 @@
+using Abbaye.misc;
 using Godot;
 using System;
 using System.Runtime.CompilerServices;
 
-public partial class EnemySmall1 : CharacterBody2D
-{
-    [Export]
-    public float movement_speed = 20;
 
-    public CharacterBody2D player;
 
-#pragma warning disable CS8618 //nullable
-    public EnemySmall1() {
-        
-    }
-#pragma warning restore CS8618 
+public partial class EnemySmall1 : CharacterBody2D {
+	[Export]
+	public float Speed = 20f;
+	[Export]
+	public int Hp = 10;
+	public Player? player;
+	public Sprite2D? sprite;
+	public Timer? wtimer; //walk anim timer
 
-    public override void _Ready() {
-        player = (CharacterBody2D)GetTree().GetFirstNodeInGroup("player");
-    }
+	public override void _Ready() {
+		player = this.GetNodeAs<Player>(() => GetTree().GetFirstNodeInGroup("player"));
+		sprite = this.GetNodeAs<Sprite2D>("Sprite2D");
+		wtimer = this.GetNodeAs<Timer>("WalkAnimTimer");
+	}
 
-    public override void _PhysicsProcess(double _delta) {
-        Vector2 dir = GlobalPosition.DirectionTo(player.GlobalPosition);
-        Velocity = dir * movement_speed;
-        MoveAndSlide();
-    }
+	public override void _PhysicsProcess(double delta) {
+		Vector2 dir = GlobalPosition.DirectionTo(player!.GlobalPosition);
+		Velocity = dir * Speed;
 
-    class EnemySmall1Inner
-    {
-        public CharacterBody2D player;
+		sprite!.FlipH = dir.X < 0;
+		sprite!.AnimOnTimer(wtimer!, true);
 
-        public EnemySmall1Inner(CharacterBody2D nplayer) {
-            player = nplayer;
-        }
-    }
+		MoveAndSlide();
+	}
+
+	private void OnHurtboxHurt(int damage) {
+		Hp -= damage;
+		if (Hp < 0) {
+			QueueFree();
+		}
+	}
 }
+
+
 
 
 
