@@ -11,6 +11,8 @@
 [node name="Background" type="TileMap" parent="."]
 tile_set = ExtResource("1_fgbsv")
 format = 2
+layer_1/z_index = -1
+layer_1/tile_data = PackedInt32Array()
 script = ExtResource("3_ib67q")
 
 [node name="player" parent="." instance=ExtResource("1_8a6ea")]
