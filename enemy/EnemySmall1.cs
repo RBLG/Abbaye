@@ -15,7 +15,7 @@ public partial class EnemySmall1 : CharacterBody2D {
 	public Timer? wtimer; //walk anim timer
 
 	public override void _Ready() {
-		player = this.GetNodeAs<Player>(() => GetTree().GetFirstNodeInGroup("player"));
+		player = this.GetFirstNodeInGroupAs<Player>("player");
 		sprite = this.GetNodeAs<Sprite2D>("Sprite2D");
 		wtimer = this.GetNodeAs<Timer>("WalkAnimTimer");
 	}

@@ -18,13 +18,18 @@ namespace Abbaye.misc {
                ?? throw new NodeNotFoundException("!Custom query!");
         }
 
+        public static RTN GetFirstNodeInGroupAs<RTN>(this Node self, string group) where RTN : Node {
+            return self.GetTree().GetFirstNodeInGroup(group) as RTN
+                ?? throw new NodeNotFoundException("Group-" + group);
+        }
+
         /// <summary>
         /// loop frames on a sprite on a timing defined by a timer
         /// </summary>
         public static void AnimOnTimer(this Sprite2D sprite, Timer timer, bool enabled) {
             if (enabled && timer.IsStopped()) {
                 //loop frames for anim
-                sprite.Frame = (sprite.Frame < sprite.Hframes-1) ? sprite.Frame + 1 : 0;
+                sprite.Frame = (sprite.Frame < sprite.Hframes - 1) ? sprite.Frame + 1 : 0;
                 timer.Start();
             }
         }

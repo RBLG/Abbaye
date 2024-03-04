@@ -22,8 +22,6 @@ scale = Vector2(0.7, 0.692857)
 texture = ExtResource("2_naq10")
 hframes = 2
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
 rotation = 1.5708
@@ -32,6 +30,8 @@ shape = SubResource("CapsuleShape2D_d8j5h")
 [node name="WalkAnimTimer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
+
+[node name="BoundedCamera2D" type="Camera2D" parent="."]
 
 [node name="Hurtbox" parent="." instance=ExtResource("3_tdck1")]
 position = Vector2(-3.46374, -2.49593)
