@@ -2,13 +2,14 @@
 
 [ext_resource type="PackedScene" uid="uid://bmt2tt204sxe" path="res://player/player.tscn" id="1_8a6ea"]
 [ext_resource type="TileSet" uid="uid://cxwqlwkh0kpbk" path="res://tile_set_test.tres" id="1_fgbsv"]
-[ext_resource type="PackedScene" uid="uid://ccgpxeqgewnoj" path="res://enemy/enemy.tscn" id="2_kgmga"]
 [ext_resource type="Script" path="res://world/Background.cs" id="3_ib67q"]
+[ext_resource type="PackedScene" uid="uid://bqfqbfxw5sn8l" path="res://Utility/enemy_spawner.tscn" id="5_gyn45"]
 [ext_resource type="Texture2D" uid="uid://bwasybow640sn" path="res://res/void_bg.png" id="5_w0acs"]
 
 [node name="world" type="Node2D"]
 
 [node name="Background" type="TileMap" parent="."]
+texture_filter = 1
 tile_set = ExtResource("1_fgbsv")
 format = 2
 layer_1/z_index = -1
@@ -16,9 +17,6 @@ layer_1/tile_data = PackedInt32Array()
 script = ExtResource("3_ib67q")
 
 [node name="player" parent="." instance=ExtResource("1_8a6ea")]
-
-[node name="EnemySmall1" parent="." instance=ExtResource("2_kgmga")]
-position = Vector2(410, 200)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -34,3 +32,5 @@ position = Vector2(-1, 0)
 texture = ExtResource("5_w0acs")
 region_enabled = true
 region_rect = Rect2(0, 0, 5000, 5000)
+
+[node name="EnemySpawner" parent="." instance=ExtResource("5_gyn45")]

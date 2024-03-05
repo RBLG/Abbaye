@@ -4,7 +4,7 @@ using System;
 
 public partial class Player : CharacterBody2D {
 	[Export]
-	public const float Speed = 60f;
+	public float Speed = 60f;
 	[Export]
 	public int Hp = 100;
 	public Sprite2D? sprite;
@@ -23,14 +23,15 @@ public partial class Player : CharacterBody2D {
 
 		Velocity = new Vector2(x, y).Normalized() * Speed;
 
-		//sprite!.FlipH = x < 0;
+		if (x != 0) { sprite!.FlipH = x < 0; }
+
 		sprite!.AnimOnTimer(wtimer!, Velocity != Vector2.Zero);
 
 		MoveAndSlide();
 	}
 	private void OnHurtboxHurt(int damage) {
 		Hp -= damage;
-		if (Hp < 0) { 
+		if (Hp < 0) {
 			//TODO
 		}
 	}

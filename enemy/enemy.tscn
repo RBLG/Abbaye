@@ -1,29 +1,31 @@
 [gd_scene load_steps=8 format=3 uid="uid://ccgpxeqgewnoj"]
 
 [ext_resource type="Script" path="res://enemy/EnemySmall1.cs" id="1_r4c0r"]
-[ext_resource type="Texture2D" uid="uid://dsjjhxruydnkk" path="res://res/enemies/ennemy_small_1_sprite.png" id="2_ebk33"]
+[ext_resource type="Texture2D" uid="uid://dbg06y20rqpfr" path="res://res/ennemy_small_1_sprite.png" id="2_t46n5"]
 [ext_resource type="PackedScene" uid="uid://bef0ed6cfi3do" path="res://Utility/hurtbox.tscn" id="3_hd363"]
 [ext_resource type="PackedScene" uid="uid://cpp7j7pp4hqx7" path="res://Utility/hitbox.tscn" id="4_ijocc"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ngpsw"]
-radius = 5.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_d82ff"]
+radius = 9.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sxir3"]
+size = Vector2(27, 28)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_3l3us"]
-radius = 7.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wm3h0"]
+size = Vector2(22, 23)
 
 [node name="EnemySmall1" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_r4c0r")
+Speed = 15.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-1, 1)
-texture = ExtResource("2_ebk33")
+position = Vector2(1, 2)
+texture = ExtResource("2_t46n5")
 hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_ngpsw")
+shape = SubResource("CircleShape2D_d82ff")
 
 [node name="WalkAnimTimer" type="Timer" parent="."]
 wait_time = 0.2
@@ -37,12 +39,10 @@ shape = SubResource("RectangleShape2D_sxir3")
 debug_color = Color(0.654902, 0.517647, 0, 0.419608)
 
 [node name="Hitbox" parent="." instance=ExtResource("4_ijocc")]
-position = Vector2(-3.46374, -2.49593)
 collision_layer = 2
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
-position = Vector2(3.46374, 2.49593)
-shape = SubResource("CircleShape2D_3l3us")
+shape = SubResource("RectangleShape2D_wm3h0")
 debug_color = Color(0.988235, 0.109804, 0, 0.419608)
 
 [editable path="Hurtbox"]
