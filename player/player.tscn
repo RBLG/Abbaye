@@ -41,6 +41,18 @@ position = Vector2(3.46374, 2.49593)
 shape = SubResource("CapsuleShape2D_nmqqk")
 debug_color = Color(0.980392, 0, 0.396078, 0.419608)
 
+[node name="Attack" type="Node2D" parent="."]
+
+[node name="BulletTimer" type="Timer" parent="Attack"]
+unique_name_in_owner = true
+wait_time = 0.05
+autostart = true
+
+[node name="BulletWaveTimer" type="Timer" parent="Attack"]
+unique_name_in_owner = true
+wait_time = 2.0
+autostart = true
+
 [connection signal="Hurt" from="Hurtbox" to="." method="OnHurtboxHurt"]
 
 [editable path="Hurtbox"]

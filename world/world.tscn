@@ -34,3 +34,5 @@ region_enabled = true
 region_rect = Rect2(0, 0, 5000, 5000)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("5_gyn45")]
+
+[node name="BulletsHolder" type="Node2D" parent="." groups=["BulletsHolder"]]

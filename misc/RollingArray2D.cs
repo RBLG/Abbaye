@@ -71,14 +71,6 @@ namespace Abbaye.misc {
             return x + y * width;
         }
 
-        protected int UnRollX(int x) {
-            return x + offsetx;
-        }
-
-        protected int UnRollY(int y) {
-            return y + offsety;
-        }
-
         public int this[int x, int y] {
             get => board[GetIndex(x, y)];
             set => board[GetIndex(x, y)] = value;

@@ -10,18 +10,17 @@ public partial class Background : TileMap {
 
 	protected RollingArray2D? tileboard;
 
-	Window? root;
+	//Window? root;
 	Player? player;
+	Vector2 vpsize;
 
 	public override void _Ready() {
-		root = GetTree().Root;
+		//root = GetTree().Root;
 		player = this.GetFirstNodeInGroupAs<Player>("player");
-		//camboundary = this.GetFirstNodeInGroupAs<Area2D>("CameraBoundary");
-		//camboundary!.BodyShapeEntered += OnBodyShapeEntered;
-		//camboundary.BodyShapeExited += OnBodyShapeExited;
 
-		int nwidth_ = root.Size.X / TileSize + 4;
-		int nheight = root.Size.Y / TileSize + 4;
+		vpsize = GetViewportRect().Size;
+		int nwidth_ = (int)(vpsize.X / TileSize + 4);
+		int nheight = (int)(vpsize.Y / TileSize + 4);
 		int noffsetx = (int)(player.GlobalPosition.X / TileSize);
 		int noffsety = (int)(player.GlobalPosition.Y / TileSize);
 		tileboard = new(nwidth_, nheight, noffsetx, noffsety, GenerateTile);
@@ -49,11 +48,25 @@ public partial class Background : TileMap {
 	}
 
 	Random rand = new();
+	int[] badlands = new int[] { 1, 2, 3, 4, 4, 4 };
+	//Noise noise = new FastNoiseLite();
 
 	private int GenerateTile(RollingArray2D arr, int x, int y) {
+		Vector2 pos = new((x - vpsize.X / 2 / TileSize) * 0.6f, y - vpsize.Y / 2 / TileSize);
+		int nval = (int)(pos.Length() + GD.RandRange(0, 0.7));
+		nval = nval switch {
+			< 7 => 0,
+			< 30 => 1,
+			< 60 => 2,
+			< 65 => 3,
+			< 85 => 4,
+			< 90 => 3,
+			_ => badlands[rand.Next(badlands.Length)]
+		}; ;
+
 		//int nval = rand.Next(6);
-		int nval = ((x + y) / 4) % 5;
-		nval = (nval < 0) ? nval + 5 : nval;
+		//int nval = ((x + y) / 4) % 5;
+		//nval = (nval < 0) ? nval + 5 : nval;
 		return nval;
 	}
 

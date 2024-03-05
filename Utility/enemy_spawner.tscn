@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Utility/EnemySpawner.cs" id="1_xq0ed"]
 
 [node name="EnemySpawner" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_xq0ed")
 
 [node name="Timer" type="Timer" parent="."]
