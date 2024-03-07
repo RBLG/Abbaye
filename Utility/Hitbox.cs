@@ -1,28 +1,37 @@
 using Abbaye.misc;
+using Abbaye.myway;
 using Godot;
 using System;
 
-public partial class Hitbox : Area2D {
-	[Export]
-	public int damage = 1;
+public partial class Hitbox : Area2D, IAttack {
 
-	public CollisionShape2D? collishape;
-	public Timer? timer;
+    public CollisionShape2D? collishape;
+    public Timer? timer;
 
-	public override void _Ready() {
-		collishape = this.GetNodeAs<CollisionShape2D>("CollisionShape2D");
-		timer = this.GetNodeAs<Timer>("Timer");
-	   
-		timer.Timeout += OnTimerTimeout;
-	}
+    [Export]
+    public int Damage { get; set; } = 1;
+
+    public override void _Ready() {
+        collishape = this.GetNodeAs<CollisionShape2D>("CollisionShape2D");
+        timer = this.GetNodeAs<Timer>("Timer");
+
+        timer.Timeout += OnTimerTimeout;
+    }
+
+    private void OnTimerTimeout() {
+        collishape!.SetDeferred("disabled", false);
+    }
+
+    public void TemporaryDisable() {
+        collishape!.SetDeferred("disabled", true);
+        timer!.Start();
+    }
+
+    public void ConfirmHit() {
+        EmitSignal(SignalName.OnHit);
+    }
 
 
-	public void TempDisable() {
-		collishape!.SetDeferred("disabled", true);
-		timer!.Start();
-	}
-
-	private void OnTimerTimeout() {
-		collishape!.SetDeferred("disabled", false);
-	}
+    [Signal]
+    public delegate void OnHitEventHandler();
 }

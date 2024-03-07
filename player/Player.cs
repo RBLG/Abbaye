@@ -20,20 +20,27 @@ public partial class Player : CharacterBody2D {
     PackedScene defbullet = GD.Load<PackedScene>("res://Bullets/default_bullet.tscn");
 
     //Timer? astimer;
-    Node2D? bsholder;
+    //Node2D? bsholder;
 
-    float db_as = 1.5f;
+    //float db_as = 1.5f;
+
+    LevelSystem lvlsys = new();
+    int collected_experience = 0;
 
 
     public override void _Ready() {
-        sprite = this.GetNodeAs<Sprite2D>("Sprite2D");
-        wtimer = this.GetNodeAs<Timer>("WalkAnimTimer");
-        hurtbox = this.GetNodeAs<Hurtbox>("Hurtbox");
-        Timer astimer = this.GetNodeAs<Timer>("%BulletTimer");
-        Timer aswtimer = this.GetNodeAs<Timer>("%BulletWaveTimer");
-        bsholder = this.GetFirstNodeInGroupAs<Node2D>("BulletsHolder");
+        sprite = GetNode<Sprite2D>("Sprite2D");
+        wtimer = GetNode<Timer>("WalkAnimTimer");
+        hurtbox = GetNode<Hurtbox>("Hurtbox");
+        Timer astimer = GetNode<Timer>("%BulletTimer");
+        Timer aswtimer = GetNode<Timer>("%BulletWaveTimer");
+        //bsholder = this.GetFirstNodeInGroupAs<Node2D>("BulletsHolder");
+        Area2D dragarea = GetNode<Area2D>("XpDragArea");
+        Area2D collectarea = GetNode<Area2D>("XpCollectArea");
 
         hurtbox!.Hurt += OnHurtboxHurt;
+        dragarea.AreaEntered += OnXpDragAreaEntered;
+        collectarea.AreaEntered += OnXpCollectAreaEntered;
 
         this.pattern.SetPatternAt(0, 1, 1);
         this.pattern.SetPatternAt(1, 0, 1);
@@ -41,6 +48,7 @@ public partial class Player : CharacterBody2D {
         astimer.Timeout += NextOnPattern;
         aswtimer.Timeout += NewAttackWave;
     }
+
 
     ////////////////////////////////ATTACK//////////////////
 
@@ -63,9 +71,9 @@ public partial class Player : CharacterBody2D {
             vec = vec.Normalized();
             if (val != 0) {//val != 0
                 DefaultBullet bullet = defbullet.Instantiate<DefaultBullet>();
-                bullet.GlobalPosition = this.GlobalPosition + vec * 3;
+                bullet.GlobalPosition = this.GlobalPosition + vec * 5;
                 bullet.dir = vec.Rotated(wave.angle);
-                bsholder!.AddChild(bullet);
+                AddChild(bullet);
             }
             wave.nth++;
             if (AttackPattern.Length <= wave.nth) {
@@ -80,11 +88,7 @@ public partial class Player : CharacterBody2D {
         this.awaves.RemoveAt(index); //would have caused a bug if two wave ended at once, but not the case
     }
 
-
-
-
-
-    ////////////////////////////////ATTACK//////////////////
+    ////////////////////////////////ATTACK END//////////////////
     public override void _PhysicsProcess(double delta) {
         float x = Input.GetActionStrength("right") - Input.GetActionStrength("left");
         float y = Input.GetActionStrength("down") - Input.GetActionStrength("up");
@@ -101,6 +105,22 @@ public partial class Player : CharacterBody2D {
         Hp -= damage;
         if (Hp < 0) {
             //TODO
+        }
+    }
+
+    private void OnXpDragAreaEntered(Area2D area) {
+        GD.Print("somethin in dragging range");
+        if (area is XpOrb xporb) {
+            xporb.StartBeingDragged();
+        }
+    }
+
+    private void OnXpCollectAreaEntered(Area2D area) {
+        if (area is XpOrb xporb) {
+            int xp = xporb.Collect();
+            lvlsys.AddXp(xp);
+            collected_experience += xp;
+            GD.Print("xp collected. yay!");
         }
     }
 }

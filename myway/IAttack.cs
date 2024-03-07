@@ -10,5 +10,7 @@ namespace Abbaye.myway {
         int Damage { get; }
 
         void TemporaryDisable();
+
+        void ConfirmHit();
     }
 }

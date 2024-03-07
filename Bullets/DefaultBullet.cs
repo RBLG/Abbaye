@@ -3,35 +3,38 @@ using Godot;
 using System;
 using System.Security.Cryptography;
 
-public partial class DefaultBullet : Area2D {
-	int level = 1;
-	int hp = 1;
+public partial class DefaultBullet : Node2D {
+	[Export]
 	int speed = 100;
-	int damage = 5;
+	[Export]
+	int damage = 10; //TODO
 	int knock_amount = 100;
-	float attack_size = 1.0f;
+	//float attack_size = 1.0f;
 
 	public Vector2 dir = Vector2.Zero;
 
-	Player? player;
 	Timer? timer;
+	Hitbox? hitbox;
 
 	public override void _Ready() {
-		player = this.GetFirstNodeInGroupAs<Player>("player");
 		timer = this.GetNodeAs<Timer>("Timer");
+		hitbox = this.GetNode<Hitbox>("Hitbox");
+
+		hitbox.Damage = damage;
+		hitbox.OnHit += OnHit;
 		timer.Timeout += Timeout;
-		//Rotation = dir.Angle() + (float)(135 * Math.PI / 180);
 	}
 
 	public override void _PhysicsProcess(double delta) {
 		Position += dir * speed * (float)delta;
 	}
 
-	public void EnemyHit(int charge) {
-		hp -= charge;
+	public void OnHit() {
+		/*hp -= charge;
 		if (hp <= 0) {
 			this.QueueFree();
-		}
+		}*/
+		this.QueueFree();
 	}
 
 	public void Timeout() {

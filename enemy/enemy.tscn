@@ -9,10 +9,10 @@
 radius = 9.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sxir3"]
-size = Vector2(27, 28)
+size = Vector2(22, 22)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wm3h0"]
-size = Vector2(22, 23)
+size = Vector2(22, 22)
 
 [node name="EnemySmall1" type="CharacterBody2D"]
 motion_mode = 1
