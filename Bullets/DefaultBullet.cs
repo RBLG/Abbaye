@@ -1,7 +1,6 @@
 using Abbaye.misc;
 using Godot;
 using System;
-using System.Security.Cryptography;
 
 public partial class DefaultBullet : Node2D {
 	[Export]
