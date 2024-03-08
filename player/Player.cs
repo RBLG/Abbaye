@@ -6,12 +6,15 @@ using System.Collections.Generic;
 
 public partial class Player : CharacterBody2D {
     [Export]
-    public float Speed = 60f;
-    [Export]
+    public float Speed = 70f;
+    public int HpMax = 100;
     public int Hp = 100;
-    public Sprite2D? sprite;
+    public Sprite2D? charsprite;
+    public Sprite2D? charspriteoff;
     public Timer? wtimer; //walk anim timer
     public Hurtbox? hurtbox;
+    public Timer? hurtimer;
+    public AudioStreamPlayer2D? snd_hurt;
 
     public AttackPattern pattern = new();
 
@@ -23,21 +26,24 @@ public partial class Player : CharacterBody2D {
 
     //float db_as = 1.5f;
 
-    LevelSystem lvlsys = new();
-    int collected_experience = 0;
+    private readonly LevelSystem lvlsys = new();
 
 
     public override void _Ready() {
-        sprite = GetNode<Sprite2D>("Sprite2D");
+        charsprite = GetNode<Sprite2D>("CharSprite");
+        charspriteoff = GetNode<Sprite2D>("CharSpriteOff");
         wtimer = GetNode<Timer>("WalkAnimTimer");
         hurtbox = GetNode<Hurtbox>("Hurtbox");
+        hurtimer = GetNode<Timer>("HurtGreyTimer");
+        snd_hurt = GetNode<AudioStreamPlayer2D>("snd_hurt");
         Timer astimer = GetNode<Timer>("%BulletTimer");
         Timer aswtimer = GetNode<Timer>("%BulletWaveTimer");
         //bsholder = this.GetFirstNodeInGroupAs<Node2D>("BulletsHolder");
         Area2D dragarea = GetNode<Area2D>("XpDragArea");
         Area2D collectarea = GetNode<Area2D>("XpCollectArea");
 
-        hurtbox!.Hurt += OnHurtboxHurt;
+        hurtbox.Hurt = OnHurtboxHurt;
+        hurtimer.Timeout += UpdateCharWellbeing;
         dragarea.AreaEntered += OnXpDragAreaEntered;
         collectarea.AreaEntered += OnXpCollectAreaEntered;
 
@@ -46,11 +52,52 @@ public partial class Player : CharacterBody2D {
         this.pattern.SetPatternAt(-1, -1, 1);
         astimer.Timeout += NextOnPattern;
         aswtimer.Timeout += NewAttackWave;
+        this.OnReadyXpCrystalSettup();
     }
 
 
-    ////////////////////////////////ATTACK//////////////////
 
+    public override void _PhysicsProcess(double delta) {
+        float x = Input.GetActionStrength("right") - Input.GetActionStrength("left");
+        float y = Input.GetActionStrength("down") - Input.GetActionStrength("up");
+
+        Velocity = new Vector2(x, y).Normalized() * Speed;
+
+        if (x != 0) { charsprite!.FlipH = x < 0; }
+        if (x != 0) { charspriteoff!.FlipH = x < 0; }
+        if (wtimer!.IsStopped()) {
+            charsprite!.Animate();
+            charspriteoff!.Animate();
+            wtimer.Start();
+        }
+
+        MoveAndSlide();
+    }
+
+    public bool Damagable = true;
+    private void OnHurtboxHurt(int damage) {
+        if (!Damagable) {
+            return;
+        }
+        //GD.Print($"Dmg: {damage} on {Hp}");
+        Hp -= damage;
+        charsprite!.UpdateAlpha(0);
+        hurtimer!.Start();
+        snd_hurt!.Play();
+        Damagable = false;
+        SetDeferred("Damagable",true);
+        //UpdateCharWellbeing();
+        if (Hp < 0) {
+            //TODO
+        }
+    }
+
+    public void UpdateCharWellbeing() {
+        charsprite!.UpdateAlpha((float)Hp / HpMax);
+    }
+
+    //////////////////////////////// ATTACK ///////////////////////////////
+    #region attack
     public class AttackWave {
         public int nth = 1;
         public float angle = (float)GD.RandRange(0, 2 * Math.PI);
@@ -86,29 +133,22 @@ public partial class Player : CharacterBody2D {
     public void DeferredAwaveRemove(int index) {
         this.awaves.RemoveAt(index); //would have caused a bug if two wave ended at once, but not the case
     }
+    #endregion attack
 
-    ////////////////////////////////ATTACK END//////////////////
-    public override void _PhysicsProcess(double delta) {
-        float x = Input.GetActionStrength("right") - Input.GetActionStrength("left");
-        float y = Input.GetActionStrength("down") - Input.GetActionStrength("up");
+    /////////////////////////////// CRYSTAL SHAKE /////////////////////////
+    #region xp
+    Tween? crystalshaker;
+    Sprite2D? crystalsprite;
+    Sprite2D? crystalgreysprite;
+    private void OnReadyXpCrystalSettup() {
+        crystalsprite = GetNode<Sprite2D>("CrystalSprite");
+        crystalgreysprite = GetNode<Sprite2D>("%OffCrystalSprite");
 
-        Velocity = new Vector2(x, y).Normalized() * Speed;
-
-        if (x != 0) { sprite!.FlipH = x < 0; }
-
-        sprite!.AnimOnTimer(wtimer!, Velocity != Vector2.Zero);
-
-        MoveAndSlide();
-    }
-    private void OnHurtboxHurt(int damage) {
-        Hp -= damage;
-        if (Hp < 0) {
-            //TODO
-        }
+        lvlsys.OnLevelUp = OnLevelUp;
+        ResetShaker();
     }
 
     private void OnXpDragAreaEntered(Area2D area) {
-        GD.Print("somethin in dragging range");
         if (area is XpOrb xporb) {
             xporb.StartBeingDragged();
         }
@@ -118,9 +158,36 @@ public partial class Player : CharacterBody2D {
         if (area is XpOrb xporb) {
             int xp = xporb.Collect();
             lvlsys.AddXp(xp);
-            collected_experience += xp;
-            GD.Print("xp collected. yay!");
+            DoTheCrystalShake();
+            UpdateLevelShine();
         }
     }
+
+    public void OnLevelUp(int level) {
+        GD.Print("Levelup");
+        //TODO
+    }
+
+    private void ResetShaker() {
+        crystalshaker = CreateTween();
+        crystalshaker.TweenProperty(crystalsprite, "scale", new Vector2(1, 1), 1).SetTrans(Tween.TransitionType.Quint).SetEase(Tween.EaseType.Out);
+    }
+
+    private void DoTheCrystalShake() {
+        crystalsprite!.Scale += new Vector2(0.15f, 0.15f);
+        crystalshaker!.Stop();
+        if (!crystalshaker!.IsValid()) {
+            //crystalshaker.Unreference(); //maybe?
+            ResetShaker();
+        }
+        crystalshaker!.Play();
+    }
+
+    public void UpdateLevelShine() {
+        Color color = crystalgreysprite!.SelfModulate;
+        color.A = 1 - lvlsys.GetCompletionRatio();
+        crystalgreysprite!.SelfModulate = color;
+    }
+    #endregion xp
 }
 

@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://mysjmnwtclnc" path="res://sound/xporb.wav" id="3_5n4um"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eid8p"]
-size = Vector2(2, 2)
+size = Vector2(4, 4)
 
 [sub_resource type="Animation" id="Animation_cqdfu"]
 resource_name = "XpCollected"
@@ -50,6 +50,7 @@ collision_mask = 0
 script = ExtResource("1_oapuk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 texture = ExtResource("2_cm7jw")
 hframes = 6
 
@@ -58,6 +59,7 @@ shape = SubResource("RectangleShape2D_eid8p")
 
 [node name="snd_collected" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_5n4um")
+volume_db = -3.581
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

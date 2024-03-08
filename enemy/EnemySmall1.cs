@@ -10,6 +10,8 @@ public partial class EnemySmall1 : CharacterBody2D {
     public float Speed = 20f;
     [Export]
     public int Hp = 10;
+    [Export]
+    public int damage=5;
 
     public static PackedScene xporbscene = GD.Load<PackedScene>("res://Objects/xp_orb.tscn");
 
@@ -24,9 +26,11 @@ public partial class EnemySmall1 : CharacterBody2D {
         sprite = GetNode<Sprite2D>("Sprite2D");
         wtimer = GetNode<Timer>("WalkAnimTimer");
         hurtbox = this.GetNodeAs<Hurtbox>("Hurtbox");
+        Hitbox hitbox = this.GetNodeAs<Hitbox>("Hitbox");
         lootholder = this.GetFirstNodeInGroupAs<Node2D>("loot");
 
-        hurtbox.Hurt += OnHurtboxHurt;
+        hitbox.Damage = damage;
+        hurtbox.Hurt = OnHurtboxHurt;
     }
 
     public override void _PhysicsProcess(double delta) {

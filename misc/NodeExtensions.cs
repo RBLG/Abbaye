@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,10 +29,14 @@ namespace Abbaye.misc {
         /// </summary>
         public static void AnimOnTimer(this Sprite2D sprite, Timer timer, bool enabled) {
             if (enabled && timer.IsStopped()) {
-                //loop frames for anim
-                sprite.Frame = (sprite.Frame < sprite.Hframes - 1) ? sprite.Frame + 1 : 0;
+                sprite.Animate();
                 timer.Start();
             }
+        }
+
+        public static void Animate(this Sprite2D sprite) {
+            //loop frames for anim
+            sprite.Frame = (sprite.Frame < sprite.Hframes - 1) ? sprite.Frame + 1 : 0;
         }
 
         /// <summary>
@@ -39,6 +44,12 @@ namespace Abbaye.misc {
         /// </summary>
         public static void FlipOnDir(this Sprite2D sprite, float dir) {
             sprite.FlipH = dir < 0;
+        }
+
+        public static void UpdateAlpha(this Sprite2D sprite, float nalpha) {
+            Color color = sprite.SelfModulate;
+            color.A = nalpha;
+            sprite.SelfModulate = color;
         }
     }
 }

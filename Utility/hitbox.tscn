@@ -10,7 +10,6 @@ script = ExtResource("1_iyxhy")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
 one_shot = true
 
 [connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

@@ -4,9 +4,9 @@ using System;
 
 public partial class XpOrb : Area2D {
 
-    int xp = 1;
+    public int xp = 1;
     [Export]
-    float speed = 0;
+    float speed = -0.5f;
     bool dragged = false;
 
     Player? target;

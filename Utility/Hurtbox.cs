@@ -38,7 +38,8 @@ public partial class Hurtbox : Area2D {
                 default: break;
             }
             int dmg = att.Damage;
-            this.EmitSignal(SignalName.Hurt, dmg);
+            Hurt?.Invoke(dmg);
+            //this.EmitSignal(SignalName.Hurt, dmg);
             att.ConfirmHit();
         }
     }
@@ -48,6 +49,7 @@ public partial class Hurtbox : Area2D {
         collishape!.SetDeferred("disabled", true);
     }
 
-    [Signal]
     public delegate void HurtEventHandler(int damage);
+
+    public HurtEventHandler? Hurt;
 }
