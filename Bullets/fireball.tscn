@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcnfqw8uvg83o"]
+
+[ext_resource type="PackedScene" uid="uid://v3m7ddtlop0i" path="res://Bullets/default_bullet.tscn" id="1_7p0mc"]
+
+[node name="DefaultBullet" instance=ExtResource("1_7p0mc")]
+
+[editable path="Hitbox"]

@@ -3,42 +3,53 @@ using Godot;
 using System;
 
 public partial class DefaultBullet : Node2D {
-	[Export]
-	int speed = 100;
-	[Export]
-	int damage = 10; //TODO
-	int knock_amount = 100;
-	//float attack_size = 1.0f;
+    [Export]
+    int speed = 100;
+    [Export]
+    int damage = 10; //TODO
+    [Export]
+    bool rotate = false;
+    //[Export]
+    //int knock_amount = 100;
+    //float attack_size = 1.0f;
+    [Export]
+    Mode mode = Mode.OneHit;
 
-	public Vector2 dir = Vector2.Zero;
+    public enum Mode { OneHit, Continuous }
 
-	Timer? timer;
-	Hitbox? hitbox;
+    public Vector2 dir = Vector2.Zero;
 
-	public override void _Ready() {
-		timer = this.GetNodeAs<Timer>("Timer");
-		hitbox = this.GetNode<Hitbox>("Hitbox");
+    Timer? timer;
+    Hitbox? hitbox;
 
-		hitbox.Damage = damage;
-		hitbox.OnHit += OnHit;
-		timer.Timeout += Timeout;
-	}
+    public override void _Ready() {
+        timer = this.GetNodeAs<Timer>("Timer");
+        hitbox = this.GetNode<Hitbox>("Hitbox");
 
-	public override void _PhysicsProcess(double delta) {
-		Position += dir * speed * (float)delta;
-	}
+        hitbox.Damage = damage;
+        hitbox.OnHit += OnHit;
+        timer.Timeout += Timeout;
+    }
 
-	public void OnHit() {
-		/*hp -= charge;
-		if (hp <= 0) {
+    public override void _PhysicsProcess(double delta) {
+        Position += dir * speed * (float)delta;
+    }
+
+    public void UpdateVisualRotation(float angle) {
+        if (rotate) {
+            Rotation = angle;
+        }
+    }
+
+    public void OnHit() {
+		if (mode is Mode.OneHit) {
 			this.QueueFree();
-		}*/
-		this.QueueFree();
-	}
+		}
+    }
 
-	public void Timeout() {
-		this.QueueFree();
-	}
+    public void Timeout() {
+        this.QueueFree();
+    }
 
 
 

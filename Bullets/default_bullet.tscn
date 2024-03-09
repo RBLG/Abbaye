@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://v3m7ddtlop0i"]
 
-[ext_resource type="Texture2D" uid="uid://sp636plgwxo3" path="res://res/bullet_default.png" id="1_ivsjq"]
+[ext_resource type="Texture2D" uid="uid://sp636plgwxo3" path="res://res/bullet/bullet_default.png" id="1_ivsjq"]
 [ext_resource type="Script" path="res://Bullets/DefaultBullet.cs" id="1_tjmgd"]
 [ext_resource type="PackedScene" uid="uid://cpp7j7pp4hqx7" path="res://Utility/hitbox.tscn" id="3_88lf6"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qwigh"]
-size = Vector2(8, 8)
+[sub_resource type="CircleShape2D" id="CircleShape2D_d11yn"]
+radius = 26.0192
 
 [node name="DefaultBullet" type="Node2D"]
 top_level = true
@@ -23,6 +23,6 @@ wait_time = 4.0
 collision_layer = 4
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
-shape = SubResource("RectangleShape2D_qwigh")
+shape = SubResource("CircleShape2D_d11yn")
 
 [editable path="Hitbox"]

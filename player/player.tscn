@@ -10,11 +10,11 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d8j5h"]
 radius = 6.0
-height = 22.0
+height = 12.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nmqqk"]
 radius = 8.0
-height = 26.0
+height = 18.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y632d"]
 
@@ -38,7 +38,7 @@ texture = ExtResource("2_naq10")
 hframes = 2
 
 [node name="CrystalSprite" type="Sprite2D" parent="."]
-position = Vector2(0.5, 1)
+position = Vector2(0, 1)
 texture = ExtResource("3_mtd58")
 
 [node name="OffCrystalSprite" type="Sprite2D" parent="CrystalSprite"]
@@ -49,7 +49,7 @@ texture = ExtResource("4_18mis")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2(-4, 4)
+position = Vector2(-1, 9)
 shape = SubResource("CapsuleShape2D_d8j5h")
 
 [node name="WalkAnimTimer" type="Timer" parent="."]
@@ -57,15 +57,15 @@ wait_time = 0.7
 one_shot = true
 
 [node name="BoundedCamera2D" type="Camera2D" parent="."]
+visible = false
 
 [node name="Hurtbox" parent="." instance=ExtResource("3_tdck1")]
-position = Vector2(-3.46374, -2.49593)
+visible = false
 collision_mask = 2
 type = 2
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-visible = false
-position = Vector2(-0.53626, 6.49593)
+position = Vector2(-1, 9)
 shape = SubResource("CapsuleShape2D_nmqqk")
 debug_color = Color(0.980392, 0, 0.396078, 0.419608)
 
@@ -73,6 +73,7 @@ debug_color = Color(0.980392, 0, 0.396078, 0.419608)
 wait_time = 0.13
 
 [node name="snd_hurt" type="AudioStreamPlayer2D" parent="."]
+visible = false
 stream = ExtResource("7_vyebp")
 
 [node name="Attack" type="Node2D" parent="."]
@@ -94,6 +95,7 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="XpCollectArea"]
+position = Vector2(-1, 9)
 shape = SubResource("CircleShape2D_y632d")
 
 [node name="XpDragArea" type="Area2D" parent="."]
@@ -102,9 +104,11 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="XpDragArea"]
+position = Vector2(-1, 9)
 shape = SubResource("CircleShape2D_2uou8")
 
 [node name="GuiLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="GuiInGame" type="Control" parent="GuiLayer"]
 layout_mode = 3

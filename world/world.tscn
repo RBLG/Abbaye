@@ -4,7 +4,7 @@
 [ext_resource type="TileSet" uid="uid://cxwqlwkh0kpbk" path="res://tile_set_test.tres" id="1_fgbsv"]
 [ext_resource type="Script" path="res://world/Background.cs" id="3_ib67q"]
 [ext_resource type="PackedScene" uid="uid://bqfqbfxw5sn8l" path="res://Utility/enemy_spawner.tscn" id="5_gyn45"]
-[ext_resource type="Texture2D" uid="uid://bwasybow640sn" path="res://res/void_bg.png" id="5_w0acs"]
+[ext_resource type="Texture2D" uid="uid://bwasybow640sn" path="res://res/world/void_bg.png" id="5_w0acs"]
 
 [node name="world" type="Node2D"]
 
@@ -15,8 +15,6 @@ format = 2
 layer_1/z_index = -1
 layer_1/tile_data = PackedInt32Array()
 script = ExtResource("3_ib67q")
-
-[node name="player" parent="." instance=ExtResource("1_8a6ea")]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -33,6 +31,12 @@ texture = ExtResource("5_w0acs")
 region_enabled = true
 region_rect = Rect2(0, 0, 5000, 5000)
 
-[node name="EnemySpawner" parent="." instance=ExtResource("5_gyn45")]
+[node name="Entities" type="Node2D" parent="."]
+y_sort_enabled = true
 
-[node name="Loot" type="Node2D" parent="." groups=["loot"]]
+[node name="player" parent="Entities" instance=ExtResource("1_8a6ea")]
+
+[node name="EnemySpawner" parent="Entities" instance=ExtResource("5_gyn45")]
+
+[node name="Loot" type="Node2D" parent="Entities" groups=["loot"]]
+y_sort_enabled = true

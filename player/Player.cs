@@ -21,6 +21,11 @@ public partial class Player : CharacterBody2D {
 
     PackedScene defbullet = GD.Load<PackedScene>("res://Bullets/default_bullet.tscn");
 
+    PackedScene bullet_psy_ = GD.Load<PackedScene>("res://Bullets/psychic_bullet.tscn");
+    PackedScene bullet_dark = GD.Load<PackedScene>("res://Bullets/dark_beam.tscn");
+    PackedScene bullet_fire = GD.Load<PackedScene>("res://Bullets/fireball.tscn");
+
+
     //Timer? astimer;
     //Node2D? bsholder;
 
@@ -47,12 +52,19 @@ public partial class Player : CharacterBody2D {
         dragarea.AreaEntered += OnXpDragAreaEntered;
         collectarea.AreaEntered += OnXpCollectAreaEntered;
 
-        this.pattern.SetPatternAt(0, 1, 1);
-        this.pattern.SetPatternAt(1, 0, 1);
-        this.pattern.SetPatternAt(-1, -1, 1);
         astimer.Timeout += NextOnPattern;
         aswtimer.Timeout += NewAttackWave;
+
         this.OnReadyXpCrystalSettup();
+
+        /*
+        var lis = UpgradePatterns.GetUpgradePsy(pattern, 0, pattern.GetIndexFromNth(1));
+        foreach (var li in lis) {
+            this.pattern.SetPatternAt(li, AttackPattern.BULLET_PSY);
+        }*/
+        this.pattern.SetPatternAt(3, -2, AttackPattern.BULLET_DARK);
+        this.pattern.SetPatternAt(-2, -2, AttackPattern.BULLET_DARK);
+        NewAttackWave();
     }
 
 
@@ -85,7 +97,7 @@ public partial class Player : CharacterBody2D {
         hurtimer!.Start();
         snd_hurt!.Play();
         Damagable = false;
-        SetDeferred("Damagable",true);
+        SetDeferred("Damagable", true);
         //UpdateCharWellbeing();
         if (Hp < 0) {
             //TODO
@@ -112,13 +124,28 @@ public partial class Player : CharacterBody2D {
     public void NextOnPattern() {
         int iter = 0;
         foreach (AttackWave wave in awaves) {
-            var (x, y, val) = pattern.GetNth(wave.nth);
-            Vector2 vec = new(x, y);
-            vec = vec.Normalized();
-            if (val != 0) {//val != 0
-                DefaultBullet bullet = defbullet.Instantiate<DefaultBullet>();
-                bullet.GlobalPosition = this.GlobalPosition + vec * 5;
-                bullet.dir = vec.Rotated(wave.angle);
+            var (x, y, val) = pattern.GetXYValueFromNth(wave.nth);
+            if (val != AttackPattern.BULLET_NONE) {//val != 0
+                Vector2 vec = new(x, y);
+                vec = vec.Rotated(wave.angle);
+                Vector2 pos = vec + new Vector2(Math.Sign(vec.X), Math.Sign(vec.Y));
+                vec = vec.Normalized();
+                DefaultBullet bullet;
+                if (val == AttackPattern.BULLET_PSY) {
+                    bullet = bullet_psy_.Instantiate<DefaultBullet>();
+
+                } else if (val == AttackPattern.BULLET_DARK) {
+                    bullet = bullet_dark.Instantiate<DefaultBullet>();
+
+                } else if (val == AttackPattern.BULLET_FIRE) {
+                    bullet = bullet_fire.Instantiate<DefaultBullet>();
+
+                } else { //default, just in case but shouldnt be needed;
+                    bullet = defbullet.Instantiate<DefaultBullet>();
+                }
+                bullet.GlobalPosition = GlobalPosition + pos;
+                bullet.dir = vec;
+                bullet.UpdateVisualRotation(vec.Angle());
                 AddChild(bullet);
             }
             wave.nth++;

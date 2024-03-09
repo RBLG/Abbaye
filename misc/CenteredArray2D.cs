@@ -38,5 +38,9 @@ namespace Abbaye.misc {
             return (x - miwi, y - mihe);
         }
 
+        public void SetByIndex(int index, int val) {
+            board[index] = val;
+        }
+
     }
 }

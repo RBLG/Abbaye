@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://bt7xo7n6p26cp"]
 
 [ext_resource type="Script" path="res://Objects/XpOrb.cs" id="1_oapuk"]
-[ext_resource type="Texture2D" uid="uid://b1vg6swxblqc5" path="res://res/xp_orb.png" id="2_cm7jw"]
+[ext_resource type="Texture2D" uid="uid://b1vg6swxblqc5" path="res://res/objects/xp_orb.png" id="2_cm7jw"]
 [ext_resource type="AudioStream" uid="uid://mysjmnwtclnc" path="res://sound/xporb.wav" id="3_5n4um"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_eid8p"]
-size = Vector2(4, 4)
+[sub_resource type="CircleShape2D" id="CircleShape2D_7knhh"]
+radius = 3.0
 
 [sub_resource type="Animation" id="Animation_cqdfu"]
 resource_name = "XpCollected"
@@ -55,7 +55,7 @@ texture = ExtResource("2_cm7jw")
 hframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_eid8p")
+shape = SubResource("CircleShape2D_7knhh")
 
 [node name="snd_collected" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_5n4um")

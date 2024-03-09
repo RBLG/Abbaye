@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1vg6swxblqc5"
-path="res://.godot/imported/xp_orb.png-c5ea737a6527599c0b0b27e085d8ac83.ctex"
+uid="uid://ce0knc1neerol"
+path="res://.godot/imported/dark_beam.png-d010b1f2947ec051abb0b805d37234ab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://res/xp_orb.png"
-dest_files=["res://.godot/imported/xp_orb.png-c5ea737a6527599c0b0b27e085d8ac83.ctex"]
+source_file="res://res/bullet/dark_beam.png"
+dest_files=["res://.godot/imported/dark_beam.png-d010b1f2947ec051abb0b805d37234ab.ctex"]
 
 [params]
 

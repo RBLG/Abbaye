@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbg06y20rqpfr"
-path="res://.godot/imported/ennemy_small_1_sprite.png-e6913be27131aadb78c6307405be2f07.ctex"
+uid="uid://b1vg6swxblqc5"
+path="res://.godot/imported/xp_orb.png-c2928c64a5f82f0f868aa2cfe257e2e7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://res/ennemy_small_1_sprite.png"
-dest_files=["res://.godot/imported/ennemy_small_1_sprite.png-e6913be27131aadb78c6307405be2f07.ctex"]
+source_file="res://res/objects/xp_orb.png"
+dest_files=["res://.godot/imported/xp_orb.png-c2928c64a5f82f0f868aa2cfe257e2e7.ctex"]
 
 [params]
 

@@ -1,10 +1,10 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cxwqlwkh0kpbk"]
 
-[ext_resource type="Texture2D" uid="uid://dxen6ggwnqqke" path="res://res/tilemaptest.png" id="1_a41uo"]
+[ext_resource type="Texture2D" uid="uid://dxen6ggwnqqke" path="res://res/world/tilemaptest.png" id="1_7kgu1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lb4en"]
 resource_name = "atlas_test"
-texture = ExtResource("1_a41uo")
+texture = ExtResource("1_7kgu1")
 texture_region_size = Vector2i(20, 20)
 4:0/0 = 0
 5:0/0 = 0
