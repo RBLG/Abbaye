@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdnfxn2xunyko"]
+
+[ext_resource type="FontFile" uid="uid://c7flrt85g22l1" path="res://font/ConnectionII.otf" id="1_6clgj"]
+
+[sub_resource type="Theme" id="Theme_amae2"]
+resource_name = "main text"
+default_font = ExtResource("1_6clgj")
+default_font_size = 0
+
+[node name="LevelUpMenu" type="Panel"]
+process_mode = 2
+custom_minimum_size = Vector2(350, 250)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -125.0
+offset_right = 100.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="lbl_select_a_curse" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -88.5
+offset_top = 3.0
+offset_right = 88.5
+offset_bottom = 28.0
+grow_horizontal = 2
+theme = SubResource("Theme_amae2")
+theme_type_variation = &"HeaderMedium"
+text = "Select a curse"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -220.0
+offset_right = 150.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="snd_lvlup" type="AudioStreamPlayer2D" parent="."]

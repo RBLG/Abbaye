@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://2agpwgaehl8f"]
+
+[ext_resource type="TileSet" uid="uid://cxwqlwkh0kpbk" path="res://tile_set_test.tres" id="1_a2afw"]
+[ext_resource type="Script" path="res://script/world/Background.cs" id="2_4r1gm"]
+[ext_resource type="Texture2D" uid="uid://bwasybow640sn" path="res://res/world/void_bg.png" id="3_5tcbq"]
+[ext_resource type="PackedScene" uid="uid://bmt2tt204sxe" path="res://scenes/player/player.tscn" id="4_0mqyn"]
+[ext_resource type="PackedScene" uid="uid://bqfqbfxw5sn8l" path="res://scenes/utility/enemy_spawner.tscn" id="5_ailqt"]
+
+[node name="world" type="Node2D"]
+
+[node name="Background" type="TileMap" parent="."]
+texture_filter = 1
+tile_set = ExtResource("1_a2afw")
+format = 2
+layer_1/z_index = -1
+layer_1/tile_data = PackedInt32Array()
+script = ExtResource("2_4r1gm")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.6, 0.6)
+motion_offset = Vector2(10, 10)
+motion_mirroring = Vector2(5000, 5000)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(-1, 0)
+texture = ExtResource("3_5tcbq")
+region_enabled = true
+region_rect = Rect2(0, 0, 5000, 5000)
+
+[node name="Entities" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="player" parent="Entities" instance=ExtResource("4_0mqyn")]
+
+[node name="Bullets" type="Node2D" parent="Entities" groups=["Bullets"]]
+y_sort_enabled = true
+
+[node name="EnemySpawner" parent="Entities" instance=ExtResource("5_ailqt")]
+
+[node name="Loot" type="Node2D" parent="Entities" groups=["loot"]]
+y_sort_enabled = true

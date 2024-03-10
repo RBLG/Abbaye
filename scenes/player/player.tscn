@@ -1,0 +1,125 @@
+[gd_scene load_steps=13 format=3 uid="uid://bmt2tt204sxe"]
+
+[ext_resource type="Script" path="res://script/player/Player.cs" id="1_cj6qb"]
+[ext_resource type="Texture2D" uid="uid://bk70rbnsi6wrm" path="res://res/player/player_dead_sprite.png" id="2_eqd33"]
+[ext_resource type="Texture2D" uid="uid://buuc38a2qxt68" path="res://res/player/player_sprite.png" id="2_naq10"]
+[ext_resource type="Texture2D" uid="uid://bqnsjblqpj8ih" path="res://res/player/player_crystal_sprite.png" id="3_mtd58"]
+[ext_resource type="PackedScene" uid="uid://bef0ed6cfi3do" path="res://scenes/utility/hurtbox.tscn" id="3_tdck1"]
+[ext_resource type="Texture2D" uid="uid://b8ubiikhkr0df" path="res://res/player/player_crystal_grey.png" id="4_18mis"]
+[ext_resource type="AudioStream" uid="uid://d0a210uf8qbvf" path="res://sound/playerhit.wav" id="7_vyebp"]
+[ext_resource type="PackedScene" uid="uid://bdnfxn2xunyko" path="res://scenes/gui/level_up_menu.tscn" id="8_qqp35"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d8j5h"]
+radius = 6.0
+height = 12.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nmqqk"]
+radius = 8.0
+height = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y632d"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2uou8"]
+radius = 108.167
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+motion_mode = 1
+script = ExtResource("1_cj6qb")
+
+[node name="CharSpriteOff" type="Sprite2D" parent="."]
+texture_filter = 5
+position = Vector2(-1, 9)
+texture = ExtResource("2_eqd33")
+hframes = 2
+
+[node name="CharSprite" type="Sprite2D" parent="."]
+texture_filter = 5
+position = Vector2(-1, 9)
+texture = ExtResource("2_naq10")
+hframes = 2
+
+[node name="CrystalSprite" type="Sprite2D" parent="."]
+position = Vector2(0, 1)
+texture = ExtResource("3_mtd58")
+
+[node name="OffCrystalSprite" type="Sprite2D" parent="CrystalSprite"]
+unique_name_in_owner = true
+self_modulate = Color(0.490196, 0.490196, 0.490196, 0.996078)
+position = Vector2(0.5, 1.5)
+texture = ExtResource("4_18mis")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-1, 9)
+shape = SubResource("CapsuleShape2D_d8j5h")
+
+[node name="WalkAnimTimer" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
+
+[node name="BoundedCamera2D" type="Camera2D" parent="."]
+visible = false
+
+[node name="Hurtbox" parent="." instance=ExtResource("3_tdck1")]
+visible = false
+collision_mask = 2
+type = 2
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(-1, 9)
+shape = SubResource("CapsuleShape2D_nmqqk")
+debug_color = Color(0.980392, 0, 0.396078, 0.419608)
+
+[node name="HurtGreyTimer" type="Timer" parent="."]
+wait_time = 0.13
+
+[node name="snd_hurt" type="AudioStreamPlayer2D" parent="."]
+visible = false
+stream = ExtResource("7_vyebp")
+
+[node name="Attack" type="Node2D" parent="."]
+visible = false
+
+[node name="BulletTimer" type="Timer" parent="Attack"]
+unique_name_in_owner = true
+wait_time = 0.05
+autostart = true
+
+[node name="BulletWaveTimer" type="Timer" parent="Attack"]
+unique_name_in_owner = true
+wait_time = 2.0
+autostart = true
+
+[node name="XpCollectArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="XpCollectArea"]
+position = Vector2(-1, 9)
+shape = SubResource("CircleShape2D_y632d")
+
+[node name="XpDragArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="XpDragArea"]
+position = Vector2(-1, 9)
+shape = SubResource("CircleShape2D_2uou8")
+
+[node name="GuiLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="GuiInGame" type="Control" parent="GuiLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 960.0
+offset_bottom = 540.0
+
+[node name="LevelUpMenu" parent="GuiLayer/GuiInGame" instance=ExtResource("8_qqp35")]
+layout_mode = 1
+offset_left = -175.0
+offset_right = 175.0
+
+[editable path="Hurtbox"]

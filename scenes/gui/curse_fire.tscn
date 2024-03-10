@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://boo6h8ra6v0ns"]
+
+[ext_resource type="PackedScene" uid="uid://cdorss2wpkw32" path="res://scenes/gui/curse_dark.tscn" id="1_ulqek"]
+[ext_resource type="Texture2D" uid="uid://5kqgfkf1yb01" path="res://res/gui/fire_curse_icon.png" id="2_gvoye"]
+
+[node name="ItemOption" instance=ExtResource("1_ulqek")]
+
+[node name="IconImage" parent="MainRect/IconBg" index="0"]
+texture = ExtResource("2_gvoye")
+
+[node name="Label" parent="MainRect" index="2"]
+text = "burning rage"
+
+[node name="RichTextLabel" parent="." index="2"]
+text = "Gain or improve the ability to blast slow orbs of all consuming fire"
