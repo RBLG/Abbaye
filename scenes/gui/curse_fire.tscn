@@ -4,12 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://5kqgfkf1yb01" path="res://res/gui/fire_curse_icon.png" id="2_gvoye"]
 
 [node name="ItemOption" instance=ExtResource("1_ulqek")]
+type = 2
 
 [node name="IconImage" parent="MainRect/IconBg" index="0"]
 texture = ExtResource("2_gvoye")
-
-[node name="Label" parent="MainRect" index="2"]
-text = "burning rage"
-
-[node name="RichTextLabel" parent="." index="2"]
-text = "Gain or improve the ability to blast slow orbs of all consuming fire"

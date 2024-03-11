@@ -4,12 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bi2dl16g8mcon" path="res://res/gui/psy_curse_icon.png" id="2_1awjt"]
 
 [node name="ItemOption" instance=ExtResource("1_up61j")]
+type = 1
 
 [node name="IconImage" parent="MainRect/IconBg" index="0"]
 texture = ExtResource("2_1awjt")
-
-[node name="Label" parent="MainRect" index="2"]
-text = "pulsing power"
-
-[node name="RichTextLabel" parent="." index="2"]
-text = "Gain or improve the ability to emit waves of psychic energy"

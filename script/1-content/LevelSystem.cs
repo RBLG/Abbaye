@@ -5,21 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Abbaye.script.misc
-{
-    public class LevelSystem
-    {
+namespace Abbaye.script.misc {
+    public class LevelSystem {
 
         private int level_threshold = 5;
 
         public int Xp { get; private set; }
 
-        public void AddXp(int value)
-        {
+        public void AddXp(int value) {
             Xp += value;
-            if (Xp >= level_threshold)
-            {
-                Level = +1;
+            if (Xp >= level_threshold) {
+                Level += 1;
                 Xp -= level_threshold;
                 level_threshold = GetThreshold(Level);
                 OnLevelUp?.Invoke(Level);
@@ -30,9 +26,8 @@ namespace Abbaye.script.misc
 
 
 
-        public static int GetThreshold(int level)
-        {
-            return 10 + level * (1 + level / 2);
+        public static int GetThreshold(int level) {
+            return 10 + level * (1 + level);
             /*return 5 + level * (level switch {
                 < 6 => 2,
                 < 11 => 5,
@@ -41,8 +36,7 @@ namespace Abbaye.script.misc
             });*/
         }
 
-        public float GetCompletionRatio()
-        {
+        public float GetCompletionRatio() {
             return Xp / (float)level_threshold;
         }
 

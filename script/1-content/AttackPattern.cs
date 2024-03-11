@@ -12,8 +12,8 @@ namespace Abbaye.script.content;
 public class AttackPattern
 {
 
-    public static readonly int Size = 15;
-    public static readonly int Length = 15 * 15;
+    public static readonly int Size = 11;
+    public static readonly int Length = 11 * 11;
 
 
     // pool (toxic)

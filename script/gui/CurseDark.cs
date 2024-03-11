@@ -16,10 +16,16 @@ public partial class CurseDark : Control {
 
         mainrect.MouseEntered += OnMouseEntered;
         mainrect.MouseExited += OnMouseExited;
+        mainrect.GuiInput += OnMouseEvent;
     }
 
+    public enum OptionType { MoreDark, MorePsy_, MoreFire }
 
-    public delegate int OnChosenEventHandler();
+    [Export]
+    OptionType type = OptionType.MoreDark;
+
+
+    public delegate void OnChosenEventHandler(OptionType type);
 
     public OnChosenEventHandler? OnChosen { get; set; }
 
@@ -32,5 +38,21 @@ public partial class CurseDark : Control {
     public void OnMouseExited() {
         mouse_over = false;
         mainrect!.Color = new Color(0.827f, 0.753f, 0.824f);
+    }
+
+    private void OnMouseEvent(InputEvent evnt) {
+        if (evnt.IsAction("click")) {
+            OnMouseClick();
+        }
+    }
+
+    bool disabled = false;
+
+    public void OnMouseClick() {
+        if (disabled) {
+            return;
+        }
+        disabled = true;
+        this.OnChosen?.Invoke(type);
     }
 }

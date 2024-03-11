@@ -18,15 +18,16 @@ public partial class Player : CharacterBody2D {
     public Timer? hurtimer;
     public AudioStreamPlayer2D? snd_hurt;
     public Node2D? bulletroot;
+    public LevelUpMenu? lvlupmenu;
 
     public AttackPattern pattern = new();
 
 
-    PackedScene defbullet = GD.Load<PackedScene>("res://scenes/bullets/default_bullet.tscn");
+    public static readonly PackedScene bullet_base = GD.Load<PackedScene>("res://scenes/bullets/default_bullet.tscn");
 
-    PackedScene bullet_psy_ = GD.Load<PackedScene>("res://scenes/bullets/psychic_bullet.tscn");
-    PackedScene bullet_dark = GD.Load<PackedScene>("res://scenes/bullets/dark_beam.tscn");
-    PackedScene bullet_fire = GD.Load<PackedScene>("res://scenes/bullets/fireball.tscn");
+    public static readonly PackedScene bullet_psy_ = GD.Load<PackedScene>("res://scenes/bullets/psychic_bullet.tscn");
+    public static readonly PackedScene bullet_dark = GD.Load<PackedScene>("res://scenes/bullets/dark_beam.tscn");
+    public static readonly PackedScene bullet_fire = GD.Load<PackedScene>("res://scenes/bullets/fireball.tscn");
 
 
     //Timer? astimer;
@@ -49,6 +50,7 @@ public partial class Player : CharacterBody2D {
         Area2D dragarea = GetNode<Area2D>("XpDragArea");
         Area2D collectarea = GetNode<Area2D>("XpCollectArea");
         bulletroot = this.GetFirstNodeInGroupAs<Node2D>("Bullets");
+        lvlupmenu = GetNode<LevelUpMenu>("%LevelUpMenu");
 
         hurtbox.Hurt = OnHurtboxHurt;
         hurtimer.Timeout += UpdateCharWellbeing;
@@ -142,9 +144,9 @@ public partial class Player : CharacterBody2D {
                     bullet = bullet_fire.Instantiate<DefaultBullet>();
 
                 } else { //default, just in case but shouldnt be needed;
-                    bullet = defbullet.Instantiate<DefaultBullet>();
+                    bullet = bullet_base.Instantiate<DefaultBullet>();
                 }
-                bullet.GlobalPosition = GlobalPosition + pos*4;
+                bullet.GlobalPosition = GlobalPosition + pos * 4;
                 bullet.dir = vec;
                 bullet.UpdateVisualRotation(vec.Angle());
                 bulletroot!.AddChild(bullet);
@@ -192,8 +194,7 @@ public partial class Player : CharacterBody2D {
     }
 
     public void OnLevelUp(int level) {
-        GD.Print("Levelup");
-        //TODO
+        lvlupmenu!.OnLevelUp(pattern, level);
     }
 
     private void ResetShaker() {
