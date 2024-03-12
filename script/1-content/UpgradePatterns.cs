@@ -11,7 +11,7 @@ public static class UpgradePatterns {
         if (nth == 0) {
             nth = 1;
         }
-        int[] rtn = new int[Math.Max(1, lvl - 2) * 2];
+        int[] rtn = new int[2 + lvl / 2];
         for (int iter = 0; iter < rtn.Length; iter++) {
             int patindex = nth + iter;
             if (patindex < AttackPattern.Length) {
@@ -28,10 +28,10 @@ public static class UpgradePatterns {
             nth = 1;
         }
 
-        int[] rtn = new int[1 + (int)Math.Floor(lvl / 3d)];
+        int[] rtn = new int[1 + lvl / 4];
         rtn[0] = pat.GetIndexFromNth(nth);
         for (int iter = 1; iter < rtn.Length; iter++) {
-            rtn[iter] = pat.GetIndexFromNth(GD.RandRange(1, AttackPattern.Length));
+            rtn[iter] = pat.GetIndexFromNth(GD.RandRange(1, AttackPattern.Length - 1));
 
         }
         return rtn;
@@ -42,7 +42,7 @@ public static class UpgradePatterns {
         if (nth == 0) {
             nth = 1;
         }
-        int[] rtn = new int[1 + lvl / 3];
+        int[] rtn = new int[1 + lvl / 5];
         rtn[0] = pat.GetIndexFromNth(nth);
         for (int iter = 1; iter < rtn.Length; iter++) {
             nth += 5;

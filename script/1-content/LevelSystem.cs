@@ -27,13 +27,15 @@ namespace Abbaye.script.misc {
 
 
         public static int GetThreshold(int level) {
-            return 10 + level * (1 + level);
-            /*return 5 + level * (level switch {
-                < 6 => 2,
-                < 11 => 5,
-                < 16 => 10,
-                _ => 20
-            });*/
+
+            return (int)Math.Min(20 + 20L * level * level, int.MaxValue);
+            //0:20
+            //1:40
+            //2:90
+            //3:190
+            //4:330
+            //5:510
+            //6:730
         }
 
         public float GetCompletionRatio() {

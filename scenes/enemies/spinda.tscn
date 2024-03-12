@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1uj6vbxg0arp"]
+
+[ext_resource type="PackedScene" uid="uid://ccgpxeqgewnoj" path="res://scenes/enemies/enemy.tscn" id="1_fnmgv"]
+[ext_resource type="Texture2D" uid="uid://cape3fouitdvq" path="res://res/enemies/spinda.png" id="2_hjoxr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oxckm"]
+radius = 7.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvmtc"]
+size = Vector2(10, 28)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j23rf"]
+radius = 9.0
+
+[node name="Enemy" instance=ExtResource("1_fnmgv")]
+hp = 15
+xp_total = 2
+anim_duration = 0.5
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -8)
+texture = ExtResource("2_hjoxr")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_oxckm")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_hvmtc")
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_j23rf")
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]

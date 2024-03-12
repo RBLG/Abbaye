@@ -87,7 +87,7 @@ autostart = true
 
 [node name="BulletWaveTimer" type="Timer" parent="Attack"]
 unique_name_in_owner = true
-wait_time = 2.0
+wait_time = 6.0
 autostart = true
 
 [node name="XpCollectArea" type="Area2D" parent="."]

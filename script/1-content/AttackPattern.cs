@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Abbaye.script.content;
 
-public class AttackPattern
-{
+public class AttackPattern {
 
-    public static readonly int Size = 11;
-    public static readonly int Length = 11 * 11;
+    public const int Size = 11;
+    public static readonly int Length = Size * Size;
+    public static readonly int Half = Size / 2;
 
 
     // pool (toxic)
@@ -37,10 +37,8 @@ public class AttackPattern
     private readonly int[] indexcache = new int[Size * Size];
     private readonly int[] nthcache = new int[Size * Size];
 
-    public AttackPattern()
-    {
-        ForEachInSpiral((x, y, it, val) =>
-        {
+    public AttackPattern() {
+        ForEachInSpiral((x, y, it, val) => {
             int index = board.GetIndex(x, y);
             indexcache[it] = index;
             nthcache[index] = it;
@@ -52,8 +50,7 @@ public class AttackPattern
     public int GetIndexFromNth(int nth) => indexcache[nth];
     public int GetNthFromIndex(int index) => nthcache[index];
 
-    public (int x, int y, int val) GetXYValueFromNth(int nth)
-    {
+    public (int x, int y, int val) GetXYValueFromNth(int nth) {
         int index = indexcache[nth];
         var (x, y) = board.GetXYFromIndex(index);
         return (x, y, board.GetFromIndex(index));
@@ -61,17 +58,14 @@ public class AttackPattern
 
 
     //iterate over the board while spiraling
-    public void ForEachInSpiral(Action<int, int, int, int> action)
-    {
+    public void ForEachInSpiral(Action<int, int, int, int> action) {
         int x = 0, y = 0;
         int dx = 0;
         int dy = -1;
         double max = Size * Size;
-        for (int it = 0; it < max; it++)
-        {
+        for (int it = 0; it < max; it++) {
             action(x, y, it, board[x, y]);
-            if (x == y || x < 0 && x == -y || x > 0 && x == 1 - y)
-            {
+            if (x == y || x < 0 && x == -y || x > 0 && x == 1 - y) {
                 int tmp = dx;
                 dx = -dy;
                 dy = tmp;
@@ -82,13 +76,11 @@ public class AttackPattern
     }
 
 
-    public void SetPatternAt(int x, int y, int val)
-    {
+    public void SetPatternAt(int x, int y, int val) {
         board[x, y] = val;
     }
 
-    public void SetPatternAt(int index, int val)
-    {
+    public void SetPatternAt(int index, int val) {
         board.SetByIndex(index, val);
     }
 

@@ -61,15 +61,6 @@ public partial class Player : CharacterBody2D {
         aswtimer.Timeout += NewAttackWave;
 
         this.OnReadyXpCrystalSettup();
-
-        /*
-        var lis = UpgradePatterns.GetUpgradePsy(pattern, 0, pattern.GetIndexFromNth(1));
-        foreach (var li in lis) {
-            this.pattern.SetPatternAt(li, AttackPattern.BULLET_PSY);
-        }*/
-        this.pattern.SetPatternAt(3, -2, AttackPattern.BULLET_DARK);
-        this.pattern.SetPatternAt(-2, -2, AttackPattern.BULLET_DARK);
-        NewAttackWave();
     }
 
 
@@ -131,25 +122,33 @@ public partial class Player : CharacterBody2D {
             if (val != AttackPattern.BULLET_NONE) {//val != 0
                 Vector2 vec = new(x, y);
                 vec = vec.Rotated(wave.angle);
-                Vector2 pos = vec + new Vector2(Math.Sign(vec.X), Math.Sign(vec.Y));
                 vec = vec.Normalized();
+                Vector2 pos = vec;
                 DefaultBullet bullet;
                 if (val == AttackPattern.BULLET_PSY) {
                     bullet = bullet_psy_.Instantiate<DefaultBullet>();
-
+                    pos *= 2;
                 } else if (val == AttackPattern.BULLET_DARK) {
                     bullet = bullet_dark.Instantiate<DefaultBullet>();
+                    pos *= 4;
 
                 } else if (val == AttackPattern.BULLET_FIRE) {
                     bullet = bullet_fire.Instantiate<DefaultBullet>();
+                    pos *= 8;
 
                 } else { //default, just in case but shouldnt be needed;
                     bullet = bullet_base.Instantiate<DefaultBullet>();
+                    pos *= 4;
                 }
-                bullet.GlobalPosition = GlobalPosition + pos * 4;
                 bullet.dir = vec;
                 bullet.UpdateVisualRotation(vec.Angle());
-                bulletroot!.AddChild(bullet);
+                if (val == AttackPattern.BULLET_DARK) {
+                    bullet.GlobalPosition = pos;
+                    AddChild(bullet);
+                } else {
+                    bullet.GlobalPosition = GlobalPosition + pos;
+                    bulletroot!.AddChild(bullet);
+                }
             }
             wave.nth++;
             if (AttackPattern.Length <= wave.nth) {

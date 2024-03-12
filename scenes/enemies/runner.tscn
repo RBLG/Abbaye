@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://deyet43qt3k15"]
+
+[ext_resource type="PackedScene" uid="uid://ccgpxeqgewnoj" path="res://scenes/enemies/enemy.tscn" id="1_lek4e"]
+[ext_resource type="Texture2D" uid="uid://bxoysurw7qsfa" path="res://res/enemies/runner.png" id="2_tnirn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hctc4"]
+radius = 4.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q4fxl"]
+size = Vector2(5, 24)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_454dr"]
+radius = 5.0
+
+[node name="Enemy" instance=ExtResource("1_lek4e")]
+speed = 40.0
+xp_total = 3
+anim_duration = 0.2
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(1, -10)
+texture = ExtResource("2_tnirn")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 0)
+shape = SubResource("CircleShape2D_hctc4")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0.5, -8)
+shape = SubResource("RectangleShape2D_q4fxl")
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_454dr")
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]

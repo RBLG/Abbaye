@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://wumc6aoe0dsw"]
+
+[ext_resource type="PackedScene" uid="uid://ccgpxeqgewnoj" path="res://scenes/enemies/enemy.tscn" id="1_ix5o8"]
+[ext_resource type="Script" path="res://script/enemies/XpFairy.cs" id="2_8xwb2"]
+[ext_resource type="Texture2D" uid="uid://b3pq7yupwc0ij" path="res://res/enemies/fairy.png" id="2_vv6ly"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vbv4h"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cyyfm"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jhat6"]
+radius = 4.0
+
+[node name="Enemy" instance=ExtResource("1_ix5o8")]
+script = ExtResource("2_8xwb2")
+anim_duration = 0.3
+right_looking = true
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(1, -8)
+texture = ExtResource("2_vv6ly")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_vbv4h")
+disabled = true
+
+[node name="Hurtbox" parent="." index="3"]
+monitoring = false
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("CircleShape2D_cyyfm")
+disabled = true
+
+[node name="Hitbox" parent="." index="4"]
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_jhat6")
+disabled = true
+
+[node name="DeathTimer" type="Timer" parent="." index="6"]
+wait_time = 9.0
+autostart = true
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]
