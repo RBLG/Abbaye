@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://dowq3vw8b6efd"]
+
+[ext_resource type="PackedScene" uid="uid://ccgpxeqgewnoj" path="res://scenes/enemies/enemy.tscn" id="1_afgih"]
+[ext_resource type="Texture2D" uid="uid://cpouvggablrrt" path="res://res/enemies/brain.png" id="2_5076w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kqsfs"]
+radius = 4.12311
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_frig8"]
+size = Vector2(7, 13)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qk5f8"]
+radius = 5.0
+
+[node name="Enemy" instance=ExtResource("1_afgih")]
+speed = 30.0
+xp_total = 3
+anim_duration = 0.2
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(1, -2)
+texture = ExtResource("2_5076w")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_kqsfs")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_frig8")
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_qk5f8")
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]

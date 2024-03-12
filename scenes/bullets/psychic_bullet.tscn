@@ -7,13 +7,17 @@
 radius = 8.0
 
 [node name="PsychicBullet" instance=ExtResource("1_kbf4m")]
-speed = 150
+speed = 120
 damage = 20
 rotate = true
+mode = 0
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_ne4et")
 flip_h = true
+
+[node name="Timer" parent="." index="2"]
+wait_time = 3.0
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2(-3, 0)

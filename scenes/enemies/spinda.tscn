@@ -13,8 +13,10 @@ size = Vector2(10, 28)
 radius = 9.0
 
 [node name="Enemy" instance=ExtResource("1_fnmgv")]
-hp = 15
-xp_total = 2
+speed = 25.0
+hp = 20
+xp_total = 10
+orb_amount = 2
 anim_duration = 0.5
 
 [node name="Sprite2D" parent="." index="0"]

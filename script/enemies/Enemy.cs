@@ -36,7 +36,8 @@ public partial class Enemy : CharacterBody2D {
     Hurtbox? hurtbox;
     Hitbox? hitbox;
     Node2D? lootholder;
-    AnimationPlayer? animplayer;
+    AnimationPlayer? deathanim;
+    AnimationPlayer? hitanim;
     CollisionShape2D? colishape;
     Tween? tween;
 
@@ -51,9 +52,10 @@ public partial class Enemy : CharacterBody2D {
         hitbox = GetNode<Hitbox>("Hitbox");
         colishape = GetNode<CollisionShape2D>("CollisionShape2D");
         lootholder = this.GetFirstNodeInGroupAs<Node2D>("loot");
-        animplayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        deathanim = GetNode<AnimationPlayer>("DeathAnimation");
+        hitanim = GetNode<AnimationPlayer>("HitAnimation");
 
-        //wtimer.WaitTime = anim_wait;
+
         hitbox.Damage = damage;
         hurtbox.Hurt = OnHurtboxHurt;
 
@@ -80,13 +82,27 @@ public partial class Enemy : CharacterBody2D {
         MoveAndSlide();
     }
 
+
+    public bool dmgable = true;
+
+    public void SetDmgable() {
+        dmgable = true;
+    }
+
     public void OnHurtboxHurt(int damage) {
+        if (!dmgable) {
+            return;
+        }
+        dmgable = false;
+        CallDeferred("SetDmgable");
+
         hp -= damage;
-        if (hp < 0) {
+        if (hp <= 0) {
 
             disabled = true;
+            dead = true;
             CallDeferred("DropLoot");
-            animplayer!.Play("Death");
+            deathanim!.Play("Death");
 
             hurtbox!.QueueFree();
             hitbox!.QueueFree();
@@ -94,7 +110,7 @@ public partial class Enemy : CharacterBody2D {
 
             //QueueFree();
         } else {
-            animplayer!.Play("Hit");
+            hitanim!.Play("Hit");
         }
     }
 
@@ -105,6 +121,14 @@ public partial class Enemy : CharacterBody2D {
             xporb.GlobalPosition = GlobalPosition + rvec;
             xporb.xp = xp_total / orb_amount;
             lootholder!.AddChild(xporb);
+        }
+    }
+
+    public bool dead = false;
+
+    public void DieIfDead() {
+        if (dead) {
+            deathanim!.Play("Death");
         }
     }
 }

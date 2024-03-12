@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlgp4sylffs8n"
-path="res://.godot/imported/runner.png-6fa315e26458bc80017860a152398d94.ctex"
+uid="uid://dvdqx47fbnog8"
+path="res://.godot/imported/thin_spinda.png-a61d9beb9ad5a25b876cf7d36a7f2026.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://res/unused/runner.png"
-dest_files=["res://.godot/imported/runner.png-6fa315e26458bc80017860a152398d94.ctex"]
+source_file="res://res/enemies/thin_spinda.png"
+dest_files=["res://.godot/imported/thin_spinda.png-a61d9beb9ad5a25b876cf7d36a7f2026.ctex"]
 
 [params]
 

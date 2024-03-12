@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://dis4nknoepm20"]
+
+[ext_resource type="PackedScene" uid="uid://ccgpxeqgewnoj" path="res://scenes/enemies/enemy.tscn" id="1_ta0eg"]
+[ext_resource type="Texture2D" uid="uid://c3tx5qmr1t2k8" path="res://res/enemies/tall_shroom.png" id="2_mpa3g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2ls0s"]
+radius = 5.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5eor2"]
+size = Vector2(11, 37)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l0ra4"]
+radius = 8.01561
+
+[node name="Enemy" instance=ExtResource("1_ta0eg")]
+speed = 15.0
+hp = 30
+damage = 15
+xp_total = 10
+orb_amount = 2
+anim_duration = 0.8
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(1, -17)
+texture = ExtResource("2_mpa3g")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_2ls0s")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(1.5, -14.5)
+shape = SubResource("RectangleShape2D_5eor2")
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(0, -0.5)
+shape = SubResource("CircleShape2D_l0ra4")
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]

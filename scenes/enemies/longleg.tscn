@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://mb7u4g45xskv"]
+
+[ext_resource type="PackedScene" uid="uid://ccgpxeqgewnoj" path="res://scenes/enemies/enemy.tscn" id="1_3d6it"]
+[ext_resource type="Texture2D" uid="uid://6c6dj83hi46g" path="res://res/enemies/longleg.png" id="2_lq3c3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j4lmk"]
+radius = 4.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i82a1"]
+size = Vector2(6, 18)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cs6co"]
+radius = 6.0
+
+[node name="Enemy" instance=ExtResource("1_3d6it")]
+hp = 11
+xp_total = 2
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(1, -8)
+texture = ExtResource("2_lq3c3")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 0)
+shape = SubResource("CircleShape2D_j4lmk")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_i82a1")
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_cs6co")
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]

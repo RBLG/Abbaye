@@ -47,7 +47,7 @@ public partial class Hurtbox : Area2D {
 
 
     private void OnTimerTimeout() {
-        collishape!.SetDeferred("disabled", true);
+        collishape!.SetDeferred("disabled", false);
     }
 
     public delegate void HurtEventHandler(int damage);

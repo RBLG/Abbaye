@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvk0nqm6r112u"
-path="res://.godot/imported/psy_curse_icon.png-9c662e7786ab3bd9b99c35c686074b4d.ctex"
+uid="uid://d1d4mnikke3iu"
+path="res://.godot/imported/giant_eye.png-9e5069824519fc71689a6cd34337a275.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://res/unused/psy_curse_icon.png"
-dest_files=["res://.godot/imported/psy_curse_icon.png-9c662e7786ab3bd9b99c35c686074b4d.ctex"]
+source_file="res://res/enemies/giant_eye.png"
+dest_files=["res://.godot/imported/giant_eye.png-9e5069824519fc71689a6cd34337a275.ctex"]
 
 [params]
 

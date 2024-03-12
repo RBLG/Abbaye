@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://uvnqexoy6m5y"
-path="res://.godot/imported/spider.png-c19a4b457b793c2b8b43c7f1211a458b.ctex"
+uid="uid://6c6dj83hi46g"
+path="res://.godot/imported/longleg.png-a62c8c963399ca99d5a5148fd86e66e3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://res/unused/spider.png"
-dest_files=["res://.godot/imported/spider.png-c19a4b457b793c2b8b43c7f1211a458b.ctex"]
+source_file="res://res/enemies/longleg.png"
+dest_files=["res://.godot/imported/longleg.png-a62c8c963399ca99d5a5148fd86e66e3.ctex"]
 
 [params]
 

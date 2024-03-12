@@ -7,12 +7,9 @@ public partial class DefaultBullet : Node2D {
     [Export]
     int speed = 100;
     [Export]
-    int damage = 10; //TODO
+    int damage = 10;
     [Export]
     bool rotate = false;
-    //[Export]
-    //int knock_amount = 100;
-    //float attack_size = 1.0f;
     [Export]
     Mode mode = Mode.OneHit;
 

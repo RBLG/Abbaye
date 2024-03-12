@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://v3m7ddtlop0i"]
 
+[ext_resource type="Texture2D" uid="uid://sp636plgwxo3" path="res://res/bullet/bullet_default.png" id="1_ivsjq"]
 [ext_resource type="Script" path="res://script/bullets/DefaultBullet.cs" id="1_tjmgd"]
-[ext_resource type="Texture2D" uid="uid://cuwj8hovilac5" path="res://res/bullet/bullet_fire.png" id="2_vhqtd"]
 [ext_resource type="PackedScene" uid="uid://cpp7j7pp4hqx7" path="res://scenes/utility/hitbox.tscn" id="3_88lf6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qqrdt"]
-radius = 20.0
+radius = 5.09902
 
 [node name="DefaultBullet" type="Node2D"]
 script = ExtResource("1_tjmgd")
@@ -13,12 +13,13 @@ speed = 10
 mode = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_vhqtd")
+texture = ExtResource("1_ivsjq")
 
 [node name="snd_play" type="AudioStreamPlayer2D" parent="."]
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 4.0
+autostart = true
 
 [node name="Hitbox" parent="." instance=ExtResource("3_88lf6")]
 collision_layer = 4

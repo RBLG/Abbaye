@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://d1scqvaon8tsl"]
+
+[ext_resource type="PackedScene" uid="uid://ccgpxeqgewnoj" path="res://scenes/enemies/enemy.tscn" id="1_2iu4o"]
+[ext_resource type="Texture2D" uid="uid://ceiur75q7prnj" path="res://res/enemies/giant_face.png" id="2_co0n2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vmpft"]
+radius = 32.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_if0t8"]
+size = Vector2(68, 77)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hpxte"]
+radius = 37.0135
+
+[node name="Enemy" instance=ExtResource("1_2iu4o")]
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(1, -44)
+texture = ExtResource("2_co0n2")
+frame = 1
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(4, -13)
+shape = SubResource("CircleShape2D_vmpft")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(9, -30)
+shape = SubResource("RectangleShape2D_if0t8")
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(5, -16)
+shape = SubResource("CircleShape2D_hpxte")
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]

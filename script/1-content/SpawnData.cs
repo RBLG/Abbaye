@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 namespace Abbaye.script.content;
-public class SpawnInfo {
+public class SpawnData {
     public readonly int tstart;
     public readonly int tend;
     public readonly string path;
@@ -12,19 +12,17 @@ public class SpawnInfo {
 
     public int delaycounter = 0;
 
-
-    public SpawnInfo(int ntstart, int ntend, string npath, int nwsize, int nwdelay) :
-        this(ntstart, ntend, GD.Load<PackedScene>(npath), nwsize, nwdelay) { }
-
-    public SpawnInfo(PackedScene nscene, int nwsize, int nwdelay) :
+    public SpawnData(PackedScene nscene, int nwsize, int nwdelay) :
         this(0, 99999, nscene, nwsize, nwdelay) { }
-    public SpawnInfo(int ntstart, int ntend, PackedScene nscene, int nwsize, int nwdelay) {
+    public SpawnData(int ntend, PackedScene nscene, int nwsize, int nwdelay) :
+        this(0, ntend, nscene, nwsize, nwdelay) { }
+    public SpawnData(int ntstart, int ntend, PackedScene nscene, int nwsize, int nwdelay) {
         tstart = ntstart;
         tend = ntend;
         path = nscene.ResourcePath;
         scene = nscene;
         wsize = nwsize;
-        wdelay = Math.Min(1, nwdelay);
+        wdelay = Math.Max(1, nwdelay);
 
     }
 }
@@ -32,14 +30,14 @@ public class SpawnInfo {
 public class SpawnRound {
 
     public readonly int duration;
-    public readonly SpawnInfo[] infos;
+    public readonly SpawnData[] datas;
 
-    public SpawnRound(int ndur) : this(ndur, Array.Empty<SpawnInfo>()) {
+    public SpawnRound(int ndur) : this(ndur, Array.Empty<SpawnData>()) {
 
     }
-    public SpawnRound(int ndur, params SpawnInfo[] ninfos) {
+    public SpawnRound(int ndur, params SpawnData[] ninfos) {
         duration = ndur;
-        infos = ninfos;
+        datas = ninfos;
     }
 
 

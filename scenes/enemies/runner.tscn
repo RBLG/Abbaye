@@ -14,7 +14,9 @@ radius = 5.0
 
 [node name="Enemy" instance=ExtResource("1_lek4e")]
 speed = 40.0
-xp_total = 3
+hp = 20
+damage = 6
+xp_total = 10
 anim_duration = 0.2
 
 [node name="Sprite2D" parent="." index="0"]

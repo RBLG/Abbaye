@@ -10,34 +10,84 @@ public partial class EnemySpawner : Node2D {
 
     public static readonly PackedScene ENEMY_SPARK = GD.Load<PackedScene>("res://scenes/enemies/enemy.tscn");
     public static readonly PackedScene ENEMY_FAIRY = GD.Load<PackedScene>("res://scenes/enemies/xp_fairy.tscn");
+    public static readonly PackedScene ENEMY_LONGLEG = GD.Load<PackedScene>("res://scenes/enemies/longleg.tscn");
+    public static readonly PackedScene ENEMY_BRAIN = GD.Load<PackedScene>("res://scenes/enemies/brain.tscn");
+    public static readonly PackedScene ENEMY_TALL_SHROOM = GD.Load<PackedScene>("res://scenes/enemies/tall_shroom.tscn");
     public static readonly PackedScene ENEMY_SPINDA = GD.Load<PackedScene>("res://scenes/enemies/spinda.tscn");
     public static readonly PackedScene ENEMY_RUNNER = GD.Load<PackedScene>("res://scenes/enemies/runner.tscn");
     public static readonly PackedScene ENEMY_TALL_SOFTHEAD = GD.Load<PackedScene>("res://scenes/enemies/tall_softhead.tscn");
+    public static readonly PackedScene ENEMY_THIN_SPINDA = GD.Load<PackedScene>("res://scenes/enemies/thin_spinda.tscn");
+    public static readonly PackedScene ENEMY_TALL_SPINDA = GD.Load<PackedScene>("res://scenes/enemies/tall_spinda.tscn");
+    public static readonly PackedScene ENEMY_GIANT_EYE = GD.Load<PackedScene>("res://scenes/enemies/giant_eye.tscn");
 
 
     //
 
     public SpawnRound[] rounds = new SpawnRound[] {
-        new(30,new SpawnInfo[]{
-            new(ENEMY_FAIRY, 01, 03),
+        new(30,new SpawnData[]{
+            new(ENEMY_FAIRY   , 02, 03),
         }),
-        new(50,new SpawnInfo[]{
-            new(0,20,ENEMY_FAIRY, 01, 10),
-            new(ENEMY_SPINDA, 01, 10),
-        }),
-        new(10),
-        new(50,new SpawnInfo[]{
-            new(ENEMY_SPINDA, 01, 10),
-            new(0,20,ENEMY_RUNNER, 06, 10),
+        new(40,new SpawnData[]{
+            new(20,ENEMY_FAIRY, 01, 06),
+            new(ENEMY_LONGLEG , 02, 02),
         }),
         new(10),
-        new(40,new SpawnInfo[]{
-            new(ENEMY_SPINDA, 01, 10),
+        new(50,new SpawnData[]{
+            new(ENEMY_LONGLEG , 03, 02),
+            new(ENEMY_BRAIN, 05, 02),
+        }),
+        new(10),
+        new(50,new SpawnData[]{
+            new(ENEMY_LONGLEG , 04, 02),
+            new(ENEMY_TALL_SHROOM, 02, 10),
+        }),
+        new(10),
+        new(50,new SpawnData[]{
+            new(ENEMY_SPINDA, 03, 02),
+            new(ENEMY_LONGLEG, 01, 10),
+        }),
+        new(10),
+        new(50,new SpawnData[]{
+            new(ENEMY_SPINDA, 04, 02),
+            new(ENEMY_RUNNER, 05, 02),
+        }),
+        new(10),
+        new(50,new SpawnData[]{
+            new(ENEMY_SPINDA, 05, 02),
             new(ENEMY_TALL_SOFTHEAD, 01, 10),
         }),
-        new(20),
-        new(60,new SpawnInfo[]{
-            new(ENEMY_SPINDA, 01, 06),
+        new(10),
+        new(50,new SpawnData[]{
+            new(20,ENEMY_THIN_SPINDA, 06, 02),
+            new(ENEMY_RUNNER, 04, 10),
+        }),
+        new(10),
+        new(50,new SpawnData[]{
+            new(20,ENEMY_THIN_SPINDA, 07, 02),
+            new(ENEMY_TALL_SPINDA, 01, 10),
+        }),
+        new(10),
+        new(1,new SpawnData[]{
+            new(ENEMY_GIANT_EYE, 01, 3000),
+        }),
+        new(60,new SpawnData[]{
+            new(ENEMY_RUNNER, 01, 1),
+            new(ENEMY_BRAIN, 05, 1),
+        }),
+        new(120,new SpawnData[]{
+            new(ENEMY_TALL_SHROOM, 01, 01),
+            new(20,ENEMY_THIN_SPINDA, 01, 01),
+            new(ENEMY_TALL_SOFTHEAD, 01, 10),
+            new(ENEMY_TALL_SPINDA, 01, 10),
+        }),
+        new(180,new SpawnData[]{
+            new(ENEMY_TALL_SOFTHEAD, 01, 02),
+            new(ENEMY_TALL_SPINDA, 01, 02),
+        }),
+        new(60,new SpawnData[]{
+            new(ENEMY_GIANT_EYE, 01, 03),
+            new(ENEMY_TALL_SOFTHEAD, 01, 01),
+            new(ENEMY_TALL_SPINDA, 01, 01),
         }),
 
     };
@@ -70,18 +120,18 @@ public partial class EnemySpawner : Node2D {
             time = 0;
         }
 
-        SpawnInfo[] spawns = rounds[round].infos;
-        foreach (SpawnInfo ene in spawns) {
-            if (!(ene.tstart <= time && time <= ene.tend)) {
+        SpawnData[] datas = rounds[round].datas;
+        foreach (SpawnData data in datas) {
+            if (time < data.tstart || data.tend < time) {
                 continue;
             }
-            if (ene.delaycounter < ene.wdelay - 1) {
-                ene.delaycounter += 1;
+            if (0 < data.delaycounter) {
+                data.delaycounter -= 1;
                 continue;
             }
-            ene.delaycounter = 0;
-            for (int counter = 0; counter < ene.wsize; counter++) {
-                var enemy_spawn = ene.scene!.Instantiate<Node2D>();
+            data.delaycounter = data.wdelay - 1;
+            for (int counter = 0; counter < data.wsize; counter++) {
+                var enemy_spawn = data.scene!.Instantiate<Node2D>();
                 enemy_spawn!.GlobalPosition = GetRandomPosition();
                 float col = (float)GD.RandRange(0.7, 1);
                 enemy_spawn.Modulate = new(col, col, col);

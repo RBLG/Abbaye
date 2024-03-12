@@ -84,12 +84,16 @@ _data = {
 [node name="DefaultBullet" instance=ExtResource("1_d4l52")]
 scale = Vector2(1, 1)
 speed = 0
+damage = 15
 rotate = true
 metadata/_edit_pinned_properties_ = [&"scale"]
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(351, 0)
 texture = ExtResource("2_fuemd")
+
+[node name="Timer" parent="." index="2"]
+autostart = false
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 texture_filter = 5

@@ -7,17 +7,18 @@
 radius = 7.07107
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vpxsh"]
-size = Vector2(8, 43)
+size = Vector2(14, 59)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uktrl"]
-radius = 8.0
+radius = 10.0499
 
 [node name="Enemy" instance=ExtResource("1_5q2d4")]
-speed = 10.0
+speed = 15.0
 hp = 50
 damage = 15
-xp_total = 10
+xp_total = 50
 orb_amount = 5
+anim_duration = 1.0
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(2, -31)
@@ -27,10 +28,11 @@ texture = ExtResource("2_vcher")
 shape = SubResource("CircleShape2D_7x26o")
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2(2, -15.5)
+position = Vector2(2, -33.5)
 shape = SubResource("RectangleShape2D_vpxsh")
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_uktrl")
 
 [editable path="Hurtbox"]

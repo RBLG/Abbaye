@@ -1,14 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://dcnfqw8uvg83o"]
+[gd_scene load_steps=4 format=3 uid="uid://dcnfqw8uvg83o"]
 
 [ext_resource type="PackedScene" uid="uid://v3m7ddtlop0i" path="res://scenes/bullets/default_bullet.tscn" id="1_7p0mc"]
+[ext_resource type="Texture2D" uid="uid://cuwj8hovilac5" path="res://res/bullet/bullet_fire.png" id="2_f3npf"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_2xmdf"]
-radius = 19.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_ipm5n"]
+radius = 20.0
 
 [node name="DefaultBullet" instance=ExtResource("1_7p0mc")]
-speed = 20
+speed = 50
+damage = 9
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_f3npf")
+
+[node name="Timer" parent="." index="2"]
+wait_time = 5.0
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
-shape = SubResource("CircleShape2D_2xmdf")
+shape = SubResource("CircleShape2D_ipm5n")
 
 [editable path="Hitbox"]
