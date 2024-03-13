@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmbpu5whhilqt"]
+
+[ext_resource type="Script" path="res://script/gui/MainTitle.cs" id="1_ev5pj"]
+[ext_resource type="Texture2D" uid="uid://ccjpjge4x6w1g" path="res://res/gui/main_background.png" id="2_h0hdu"]
+[ext_resource type="PackedScene" uid="uid://fpwqnh7j0tue" path="res://scenes/gui/custom_button.tscn" id="2_ms2jg"]
+[ext_resource type="Texture2D" uid="uid://c01a0wadsnld5" path="res://res/gui/main_title.png" id="4_y88nj"]
+
+[node name="MainTitle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ev5pj")
+
+[node name="Background" type="TextureRect" parent="."]
+texture_filter = 1
+texture_repeat = 1
+custom_minimum_size = Vector2(960, 540)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_h0hdu")
+expand_mode = 3
+
+[node name="Title" type="TextureRect" parent="."]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -480.0
+offset_top = -270.0
+offset_right = 480.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_y88nj")
+
+[node name="btn_play" parent="." instance=ExtResource("2_ms2jg")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -128.5
+offset_top = -205.0
+offset_right = 128.5
+offset_bottom = -97.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" parent="btn_play" index="0"]
+text = "Fight"
+
+[editable path="btn_play"]

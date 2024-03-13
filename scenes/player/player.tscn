@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bmt2tt204sxe"]
+[gd_scene load_steps=15 format=3 uid="uid://bmt2tt204sxe"]
 
 [ext_resource type="Script" path="res://script/player/Player.cs" id="1_cj6qb"]
 [ext_resource type="Texture2D" uid="uid://bk70rbnsi6wrm" path="res://res/player/player_dead_sprite.png" id="2_eqd33"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b8ubiikhkr0df" path="res://res/player/player_crystal_grey.png" id="4_18mis"]
 [ext_resource type="AudioStream" uid="uid://d0a210uf8qbvf" path="res://sound/playerhit.wav" id="7_vyebp"]
 [ext_resource type="PackedScene" uid="uid://bdnfxn2xunyko" path="res://scenes/gui/level_up_menu.tscn" id="8_by4vo"]
+[ext_resource type="PackedScene" uid="uid://cemmu3s6bfqeb" path="res://scenes/gui/dialog_box.tscn" id="9_bncb3"]
 [ext_resource type="AudioStream" uid="uid://cjmmyrv82rety" path="res://sound/cast.wav" id="9_t217c"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d8j5h"]
@@ -124,9 +125,10 @@ layout_mode = 1
 offset_left = -175.0
 offset_right = 175.0
 
+[node name="DialogBox" parent="GuiLayer" instance=ExtResource("9_bncb3")]
+
 [node name="snd_cast" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_t217c")
-max_polyphony = 2
 
 [node name="snd_lvl" type="AudioStreamPlayer2D" parent="."]
 

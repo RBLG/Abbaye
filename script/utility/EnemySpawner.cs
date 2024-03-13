@@ -25,7 +25,7 @@ public partial class EnemySpawner : Node2D {
     //
 
     public SpawnRound[] rounds = new SpawnRound[] {
-        new(30,new SpawnData[]{
+        new(20,new SpawnData[]{
             new(ENEMY_FAIRY   , 02, 03),
         }),
         new(40,new SpawnData[]{

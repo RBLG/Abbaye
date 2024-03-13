@@ -12,10 +12,13 @@ namespace Abbaye.script.content
         public static readonly string[] dialogs = new string[] {
         "Is it a fight worth winning?",
         "...",
-        "Days used to fly so fast... Now i wonder if Time itself is even there to bring the end.",
+        "Days used to fly so fast... but now is Time itself even there to bring the end?",
         "Bring it on.",
-        "Maybe there's another way?",
-        "I'm touching grass. Hehe."
+        "I wish there was another way, but really, the context doesnt give much options.",
+        "Atleast I'm touching grass. Hehe.",
+        "I would have never believed it if someone told me doom would come from some glowing mushrooms.",
+        "Asteban, Laina, Hasmine...I wont forget you.",
+        "I will honor this world until the end."
         };
     }
 }

@@ -40,7 +40,7 @@ public partial class Enemy : CharacterBody2D {
     AnimationPlayer? hitanim;
     CollisionShape2D? colishape;
     Tween? tween;
-
+    AudioStreamPlayer2D? snd_death;
 
     private bool disabled = false;
 
@@ -54,6 +54,7 @@ public partial class Enemy : CharacterBody2D {
         lootholder = this.GetFirstNodeInGroupAs<Node2D>("loot");
         deathanim = GetNode<AnimationPlayer>("DeathAnimation");
         hitanim = GetNode<AnimationPlayer>("HitAnimation");
+        snd_death = GetNode<AudioStreamPlayer2D>("snd_death");
 
 
         hitbox.Damage = damage;
@@ -89,6 +90,12 @@ public partial class Enemy : CharacterBody2D {
         dmgable = true;
     }
 
+    public static bool snd_enabled = true;
+
+    public void EnforceSndOn() {
+        snd_enabled = true;
+    }
+
     public void OnHurtboxHurt(int damage) {
         if (!dmgable) {
             return;
@@ -101,6 +108,11 @@ public partial class Enemy : CharacterBody2D {
 
             disabled = true;
             dead = true;
+            if (snd_enabled) {
+                snd_death!.Play();
+                snd_enabled = false;
+            }
+            SetDeferred("snd_enabled", true);
             CallDeferred("DropLoot");
             deathanim!.Play("Death");
 

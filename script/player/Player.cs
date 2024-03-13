@@ -21,6 +21,7 @@ public partial class Player : CharacterBody2D {
     public AudioStreamPlayer2D? snd_lvl;
     public Node2D? bulletroot;
     public LevelUpMenu? lvlupmenu;
+    public CanvasLayer? guilayer;
 
     public AttackPattern pattern = new();
 
@@ -30,6 +31,8 @@ public partial class Player : CharacterBody2D {
     public static readonly PackedScene bullet_psy_ = GD.Load<PackedScene>("res://scenes/bullets/psychic_bullet.tscn");
     public static readonly PackedScene bullet_dark = GD.Load<PackedScene>("res://scenes/bullets/dark_beam.tscn");
     public static readonly PackedScene bullet_fire = GD.Load<PackedScene>("res://scenes/bullets/fireball.tscn");
+
+    public static readonly PackedScene death_screen = GD.Load<PackedScene>("res://scenes/gui/death_screen.tscn");
 
 
     //Timer? astimer;
@@ -55,6 +58,8 @@ public partial class Player : CharacterBody2D {
         Area2D collectarea = GetNode<Area2D>("XpCollectArea");
         bulletroot = this.GetFirstNodeInGroupAs<Node2D>("Bullets");
         lvlupmenu = GetNode<LevelUpMenu>("%LevelUpMenu");
+
+        guilayer = GetNode<CanvasLayer>("GuiLayer");
 
         hurtbox.Hurt = OnHurtboxHurt;
         hurtimer.Timeout += UpdateCharWellbeing;
@@ -98,12 +103,22 @@ public partial class Player : CharacterBody2D {
         Damagable = false;
         SetDeferred("Damagable", true); // HACK because it would proc twice/four time per actual collision
         if (Hp < 0) {
-            //TODO
+            OnDeath();
         }
     }
 
+    bool dead = false;
+
+    public void OnDeath() {
+        dead = true;
+        Control ds = death_screen.Instantiate<Control>();
+        GetTree().Paused = true;
+        guilayer!.AddChild(ds);
+    }
+
+
     public void UpdateCharWellbeing() {
-        charsprite!.UpdateAlpha((float)Hp / HpMax);
+        charsprite!.UpdateAlpha(((float)Hp) / HpMax);
     }
 
     //////////////////////////////// ATTACK ///////////////////////////////
@@ -198,6 +213,10 @@ public partial class Player : CharacterBody2D {
     }
 
     public void OnLevelUp(int level) {
+        if (dead) {
+            return;
+        }
+
         //snd_lvl!.Play();
         lvlupmenu!.OnLevelUp(pattern, level);
     }
