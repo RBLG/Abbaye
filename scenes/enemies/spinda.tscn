@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cape3fouitdvq" path="res://res/enemies/spinda.png" id="2_hjoxr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oxckm"]
-radius = 7.0
+radius = 8.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hvmtc"]
 size = Vector2(10, 28)

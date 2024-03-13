@@ -17,6 +17,8 @@ public partial class Player : CharacterBody2D {
     public Hurtbox? hurtbox;
     public Timer? hurtimer;
     public AudioStreamPlayer2D? snd_hurt;
+    public AudioStreamPlayer2D? snd_cast;
+    public AudioStreamPlayer2D? snd_lvl;
     public Node2D? bulletroot;
     public LevelUpMenu? lvlupmenu;
 
@@ -45,6 +47,8 @@ public partial class Player : CharacterBody2D {
         hurtbox = GetNode<Hurtbox>("Hurtbox");
         hurtimer = GetNode<Timer>("HurtGreyTimer");
         snd_hurt = GetNode<AudioStreamPlayer2D>("snd_hurt");
+        snd_cast = GetNode<AudioStreamPlayer2D>("snd_cast");
+        snd_lvl = GetNode<AudioStreamPlayer2D>("snd_lvl");
         Timer astimer = GetNode<Timer>("%BulletTimer");
         Timer aswtimer = GetNode<Timer>("%BulletWaveTimer");
         Area2D dragarea = GetNode<Area2D>("XpDragArea");
@@ -149,6 +153,7 @@ public partial class Player : CharacterBody2D {
                     bullet.GlobalPosition = GlobalPosition + pos;
                     bulletroot!.AddChild(bullet);
                 }
+                snd_cast!.Play();
             }
             wave.nth++;
             if (AttackPattern.Length <= wave.nth) {
@@ -193,6 +198,7 @@ public partial class Player : CharacterBody2D {
     }
 
     public void OnLevelUp(int level) {
+        //snd_lvl!.Play();
         lvlupmenu!.OnLevelUp(pattern, level);
     }
 

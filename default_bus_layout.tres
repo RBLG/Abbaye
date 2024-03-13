@@ -1,0 +1,20 @@
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://d2o05cyecvhgt"]
+
+[ext_resource type="AudioEffectLimiter" uid="uid://dfsva0cbsm76" path="res://sound/death_audio_effect_limiter.tres" id="1_yqgdd"]
+
+[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_410ll"]
+resource_name = "Compressor"
+threshold = -13.7
+gain = -2.0
+
+[resource]
+bus/1/name = &"Death_snd"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/1/effect/0/effect = ExtResource("1_yqgdd")
+bus/1/effect/0/enabled = true
+bus/1/effect/1/effect = SubResource("AudioEffectCompressor_410ll")
+bus/1/effect/1/enabled = true

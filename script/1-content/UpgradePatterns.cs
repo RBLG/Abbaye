@@ -11,7 +11,7 @@ public static class UpgradePatterns {
         if (nth == 0) {
             nth = 1;
         }
-        int[] rtn = new int[2 + lvl / 2];
+        int[] rtn = new int[3 + lvl / 2];
         for (int iter = 0; iter < rtn.Length; iter++) {
             int patindex = nth + iter;
             if (patindex < AttackPattern.Length) {

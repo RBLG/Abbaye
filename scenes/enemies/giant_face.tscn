@@ -13,11 +13,15 @@ size = Vector2(68, 77)
 radius = 37.0135
 
 [node name="Enemy" instance=ExtResource("1_2iu4o")]
+speed = 25.0
+hp = 400
+damage = 30
+xp_total = 300
+orb_amount = 2
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(1, -44)
 texture = ExtResource("2_co0n2")
-frame = 1
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2(4, -13)

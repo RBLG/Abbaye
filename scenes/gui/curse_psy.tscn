@@ -8,3 +8,9 @@ type = 1
 
 [node name="IconImage" parent="MainRect/IconBg" index="0"]
 texture = ExtResource("2_1awjt")
+
+[node name="Title" parent="MainRect" index="2"]
+text = "pulsing pain"
+
+[node name="Description" parent="MainRect" index="3"]
+text = "gain or improve the ability to emit waves of psychic energy"

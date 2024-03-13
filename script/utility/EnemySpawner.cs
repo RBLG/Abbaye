@@ -19,6 +19,7 @@ public partial class EnemySpawner : Node2D {
     public static readonly PackedScene ENEMY_THIN_SPINDA = GD.Load<PackedScene>("res://scenes/enemies/thin_spinda.tscn");
     public static readonly PackedScene ENEMY_TALL_SPINDA = GD.Load<PackedScene>("res://scenes/enemies/tall_spinda.tscn");
     public static readonly PackedScene ENEMY_GIANT_EYE = GD.Load<PackedScene>("res://scenes/enemies/giant_eye.tscn");
+    public static readonly PackedScene ENEMY_GIANT_FACE = GD.Load<PackedScene>("res://scenes/enemies/giant_face.tscn");
 
 
     //
@@ -46,48 +47,53 @@ public partial class EnemySpawner : Node2D {
             new(ENEMY_SPINDA, 03, 02),
             new(ENEMY_LONGLEG, 01, 10),
         }),
-        new(10),
         new(50,new SpawnData[]{
             new(ENEMY_SPINDA, 04, 02),
             new(ENEMY_RUNNER, 05, 02),
         }),
-        new(10),
         new(50,new SpawnData[]{
             new(ENEMY_SPINDA, 05, 02),
-            new(ENEMY_TALL_SOFTHEAD, 01, 10),
+            new(ENEMY_TALL_SOFTHEAD, 02, 10),
         }),
-        new(10),
         new(50,new SpawnData[]{
-            new(20,ENEMY_THIN_SPINDA, 06, 02),
-            new(ENEMY_RUNNER, 04, 10),
+            new(20,ENEMY_THIN_SPINDA, 07, 02),
+            new(ENEMY_RUNNER, 7, 8),
         }),
         new(10),
         new(50,new SpawnData[]{
             new(20,ENEMY_THIN_SPINDA, 07, 02),
             new(ENEMY_TALL_SPINDA, 01, 10),
         }),
-        new(10),
         new(1,new SpawnData[]{
             new(ENEMY_GIANT_EYE, 01, 3000),
         }),
         new(60,new SpawnData[]{
-            new(ENEMY_RUNNER, 01, 1),
-            new(ENEMY_BRAIN, 05, 1),
+            new(ENEMY_RUNNER, 08, 1),
+            new(ENEMY_BRAIN, 08, 1),
         }),
         new(120,new SpawnData[]{
-            new(ENEMY_TALL_SHROOM, 01, 01),
-            new(20,ENEMY_THIN_SPINDA, 01, 01),
-            new(ENEMY_TALL_SOFTHEAD, 01, 10),
-            new(ENEMY_TALL_SPINDA, 01, 10),
+            new(ENEMY_TALL_SHROOM, 07, 01),
+            new(20,ENEMY_THIN_SPINDA, 05, 01),
+            new(ENEMY_TALL_SOFTHEAD, 03, 10),
+            new(ENEMY_TALL_SPINDA, 03, 10),
         }),
-        new(180,new SpawnData[]{
-            new(ENEMY_TALL_SOFTHEAD, 01, 02),
-            new(ENEMY_TALL_SPINDA, 01, 02),
+        new(120,new SpawnData[]{
+            new(ENEMY_TALL_SOFTHEAD, 10, 02),
+            new(ENEMY_TALL_SPINDA, 10, 02),
+        }),
+        new(1,new SpawnData[]{
+            new(ENEMY_GIANT_FACE, 01, 3000),
+        }),
+        new(120,new SpawnData[]{
+            new(ENEMY_GIANT_EYE, 04, 03),
+            new(ENEMY_TALL_SOFTHEAD, 04, 01),
+            new(ENEMY_TALL_SPINDA, 04, 01),
         }),
         new(60,new SpawnData[]{
-            new(ENEMY_GIANT_EYE, 01, 03),
+            new(ENEMY_GIANT_EYE, 04, 01),
             new(ENEMY_TALL_SOFTHEAD, 01, 01),
-            new(ENEMY_TALL_SPINDA, 01, 01),
+            new(ENEMY_TALL_SPINDA, 10, 01),
+            new(ENEMY_GIANT_FACE, 04, 01),
         }),
 
     };
