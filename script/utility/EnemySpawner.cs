@@ -25,12 +25,15 @@ public partial class EnemySpawner : Node2D {
     //
 
     public SpawnRound[] rounds = new SpawnRound[] {
-        new(20,new SpawnData[]{
-            new(ENEMY_FAIRY   , 02, 03),
+        new(10,new SpawnData[]{
+            new(ENEMY_FAIRY   , 10, 05),
         }),
         new(40,new SpawnData[]{
             new(20,ENEMY_FAIRY, 01, 06),
             new(ENEMY_LONGLEG , 02, 02),
+        }),
+        new(1,new SpawnData[]{
+            new(ENEMY_SPINDA, 02, 3000),
         }),
         new(10),
         new(50,new SpawnData[]{
@@ -38,48 +41,52 @@ public partial class EnemySpawner : Node2D {
             new(ENEMY_BRAIN, 05, 02),
         }),
         new(10),
+        new(1,new SpawnData[]{
+            new(ENEMY_TALL_SOFTHEAD, 01, 3000),
+        }),
         new(50,new SpawnData[]{
             new(ENEMY_LONGLEG , 04, 02),
-            new(ENEMY_TALL_SHROOM, 02, 10),
+            new(ENEMY_TALL_SHROOM, 02, 7),
         }),
-        new(10),
         new(50,new SpawnData[]{
             new(ENEMY_SPINDA, 03, 02),
-            new(ENEMY_LONGLEG, 01, 10),
+            new(ENEMY_BRAIN, 07, 02),
         }),
         new(50,new SpawnData[]{
-            new(ENEMY_SPINDA, 04, 02),
-            new(ENEMY_RUNNER, 05, 02),
+            new(ENEMY_SPINDA, 06, 02),
+            new(ENEMY_RUNNER, 06, 02),
         }),
         new(50,new SpawnData[]{
-            new(ENEMY_SPINDA, 05, 02),
+            new(ENEMY_SPINDA, 06, 02),
             new(ENEMY_TALL_SOFTHEAD, 02, 10),
+            new(ENEMY_BRAIN, 01, 01),
         }),
-        new(50,new SpawnData[]{
-            new(20,ENEMY_THIN_SPINDA, 07, 02),
+        new(60,new SpawnData[]{
+            new(ENEMY_THIN_SPINDA, 07, 02),
             new(ENEMY_RUNNER, 7, 8),
         }),
-        new(10),
-        new(50,new SpawnData[]{
-            new(20,ENEMY_THIN_SPINDA, 07, 02),
-            new(ENEMY_TALL_SPINDA, 01, 10),
+        new(60,new SpawnData[]{
+            new(40,ENEMY_THIN_SPINDA, 07, 02),
+            new(ENEMY_TALL_SPINDA, 02, 7),
+            new(ENEMY_BRAIN, 01, 04),
         }),
         new(1,new SpawnData[]{
             new(ENEMY_GIANT_EYE, 01, 3000),
         }),
         new(60,new SpawnData[]{
             new(ENEMY_RUNNER, 08, 1),
-            new(ENEMY_BRAIN, 08, 1),
+            new(ENEMY_BRAIN, 07, 1),
         }),
-        new(120,new SpawnData[]{
+        new(60,new SpawnData[]{
             new(ENEMY_TALL_SHROOM, 07, 01),
             new(20,ENEMY_THIN_SPINDA, 05, 01),
             new(ENEMY_TALL_SOFTHEAD, 03, 10),
             new(ENEMY_TALL_SPINDA, 03, 10),
         }),
-        new(120,new SpawnData[]{
+        new(60,new SpawnData[]{
             new(ENEMY_TALL_SOFTHEAD, 10, 02),
             new(ENEMY_TALL_SPINDA, 10, 02),
+            new(ENEMY_RUNNER, 01, 10),
         }),
         new(1,new SpawnData[]{
             new(ENEMY_GIANT_FACE, 01, 3000),

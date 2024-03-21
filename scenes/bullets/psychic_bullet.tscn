@@ -8,7 +8,7 @@ radius = 8.0
 
 [node name="PsychicBullet" instance=ExtResource("1_kbf4m")]
 speed = 120
-damage = 25
+damage = 30
 rotate = true
 mode = 0
 
