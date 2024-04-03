@@ -13,12 +13,12 @@ size = Vector2(11, 37)
 radius = 8.01561
 
 [node name="Enemy" instance=ExtResource("1_ta0eg")]
-speed = 15.0
-hp = 30
-damage = 15
+speed = 35.0
+max_dir_variation = 0.03
+hp = 20
 xp_total = 10
 orb_amount = 2
-anim_duration = 0.8
+anim_duration = 0.3
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(1, -17)

@@ -10,6 +10,12 @@ public partial class Enemy : CharacterBody2D {
     [Export]
     public float speed = 20f;
     [Export]
+    public float max_speed_variation = 0.2f;
+
+    [Export]
+    public float max_dir_variation = 0f;
+
+    [Export]
     public int hp = 10;
     [Export]
     public int damage = 5;
@@ -29,6 +35,10 @@ public partial class Enemy : CharacterBody2D {
     public bool right_looking = false;
 
     public static readonly PackedScene xporbscene = GD.Load<PackedScene>("res://scenes/objects/xp_orb.tscn");
+
+    float speedvar = 1;
+    float dirvar = 1;
+    int runvar = 0;
 
     Player? player;
     Sprite2D? sprite;
@@ -56,6 +66,10 @@ public partial class Enemy : CharacterBody2D {
         hitanim = GetNode<AnimationPlayer>("HitAnimation");
         snd_death = GetNode<AudioStreamPlayer2D>("snd_death");
 
+        dirvar = (float)GD.RandRange(-max_dir_variation, max_dir_variation) * 2 * MathF.PI;
+        speedvar = (float)GD.RandRange(1 - max_speed_variation, 1 + max_speed_variation);
+        this.anim_duration *= speedvar;
+        runvar = GD.RandRange(0, 30);
 
         hitbox.Damage = damage;
         hurtbox.Hurt = OnHurtboxHurt;
@@ -71,16 +85,23 @@ public partial class Enemy : CharacterBody2D {
     }
 
     public override void _PhysicsProcess(double delta) {
-        if (disabled) {
-            return;
-        }
-        Vector2 dir = GlobalPosition.DirectionTo(player!.GlobalPosition);
-        Velocity = dir * speed;
+        if (disabled) { return; }
+        Vector2 this2targ = player!.GlobalPosition - GlobalPosition; //             // get the vector from this to the player
+        Vector2 dir = this2targ.Normalized();
+
+        this2targ.X *= 0.6f; //                                                     // scale X so that XY ratio is roughly screen ratio
+        float dist = Mathf.Max(Mathf.Abs(this2targ.X), Math.Abs(this2targ.Y)); //   // getting the highest absolute value between X and Y
+        dist = Mathf.Max(0, dist - 290 + runvar); //                                 // set the minimum distance from player with random margin
+
+        float runratio = dist * 0.02f; //                                           // get the ratio for each speed values
+        float walkratio = Mathf.Max(0, 1 - runratio);                               // |
+        float realspeed = speed * walkratio + player.Speed * runratio; //           // interpolation between defined speed and player speed (aka camera speed)
+
+        dir = dir.Rotated(dirvar * walkratio);
+        Velocity = dir * realspeed;
+        MoveAndSlide();
 
         sprite!.FlipH = (dir.X < 0) ^ right_looking;
-        //sprite!.AnimOnTimer(wtimer!, true);
-
-        MoveAndSlide();
     }
 
 

@@ -7,100 +7,88 @@ using System.Collections.Generic;
 namespace Abbaye.script;
 public partial class EnemySpawner : Node2D {
 
+    public const int MAX_ENEMY_AMOUNT = 100;
 
-    public static readonly PackedScene ENEMY_SPARK = GD.Load<PackedScene>("res://scenes/enemies/enemy.tscn");
-    public static readonly PackedScene ENEMY_FAIRY = GD.Load<PackedScene>("res://scenes/enemies/xp_fairy.tscn");
+    public static readonly PackedScene ENEMY_SPARK__ = GD.Load<PackedScene>("res://scenes/enemies/enemy.tscn");
+    public static readonly PackedScene ENEMY_FAIRY__ = GD.Load<PackedScene>("res://scenes/enemies/xp_fairy.tscn");
     public static readonly PackedScene ENEMY_LONGLEG = GD.Load<PackedScene>("res://scenes/enemies/longleg.tscn");
-    public static readonly PackedScene ENEMY_BRAIN = GD.Load<PackedScene>("res://scenes/enemies/brain.tscn");
-    public static readonly PackedScene ENEMY_TALL_SHROOM = GD.Load<PackedScene>("res://scenes/enemies/tall_shroom.tscn");
-    public static readonly PackedScene ENEMY_SPINDA = GD.Load<PackedScene>("res://scenes/enemies/spinda.tscn");
-    public static readonly PackedScene ENEMY_RUNNER = GD.Load<PackedScene>("res://scenes/enemies/runner.tscn");
-    public static readonly PackedScene ENEMY_TALL_SOFTHEAD = GD.Load<PackedScene>("res://scenes/enemies/tall_softhead.tscn");
-    public static readonly PackedScene ENEMY_THIN_SPINDA = GD.Load<PackedScene>("res://scenes/enemies/thin_spinda.tscn");
-    public static readonly PackedScene ENEMY_TALL_SPINDA = GD.Load<PackedScene>("res://scenes/enemies/tall_spinda.tscn");
-    public static readonly PackedScene ENEMY_GIANT_EYE = GD.Load<PackedScene>("res://scenes/enemies/giant_eye.tscn");
-    public static readonly PackedScene ENEMY_GIANT_FACE = GD.Load<PackedScene>("res://scenes/enemies/giant_face.tscn");
-
-
-    //
+    public static readonly PackedScene ENEMY_BRAIN__ = GD.Load<PackedScene>("res://scenes/enemies/brain.tscn");
+    public static readonly PackedScene ENEMY_SPINDA_ = GD.Load<PackedScene>("res://scenes/enemies/spinda.tscn");
+    public static readonly PackedScene ENEMY_RUNNER_ = GD.Load<PackedScene>("res://scenes/enemies/runner.tscn");
+    public static readonly PackedScene ENEMY_TALLSHROOM__ = GD.Load<PackedScene>("res://scenes/enemies/tall_shroom.tscn");
+    public static readonly PackedScene ENEMY_TALLSOFTHEAD = GD.Load<PackedScene>("res://scenes/enemies/tall_softhead.tscn");
+    public static readonly PackedScene ENEMY_THIN_SPINDA_ = GD.Load<PackedScene>("res://scenes/enemies/thin_spinda.tscn");
+    public static readonly PackedScene ENEMY_TALL_SPINDA_ = GD.Load<PackedScene>("res://scenes/enemies/tall_spinda.tscn");
+    public static readonly PackedScene ENEMY_GIANT_EYE___ = GD.Load<PackedScene>("res://scenes/enemies/giant_eye.tscn");
+    public static readonly PackedScene ENEMY_GIANT_FACE__ = GD.Load<PackedScene>("res://scenes/enemies/giant_face.tscn");
 
     public SpawnRound[] rounds = new SpawnRound[] {
         new(10,new SpawnData[]{
-            new(ENEMY_FAIRY   , 10, 05),
+            new(ENEMY_FAIRY__, 5, 3),
         }),
         new(40,new SpawnData[]{
-            new(20,ENEMY_FAIRY, 01, 06),
-            new(ENEMY_LONGLEG , 02, 02),
+            new(ENEMY_FAIRY__, 1, 6),
+            new(ENEMY_LONGLEG, 1),
         }),
-        new(1,new SpawnData[]{
-            new(ENEMY_SPINDA, 02, 3000),
+        new(new(ENEMY_SPINDA_, 2)),
+        new(60,new SpawnData[]{
+            new(ENEMY_LONGLEG, 1),
+            new(ENEMY_BRAIN__, 3),
         }),
-        new(10),
-        new(50,new SpawnData[]{
-            new(ENEMY_LONGLEG , 03, 02),
-            new(ENEMY_BRAIN, 05, 02),
-        }),
-        new(10),
-        new(1,new SpawnData[]{
-            new(ENEMY_TALL_SOFTHEAD, 01, 3000),
-        }),
-        new(50,new SpawnData[]{
-            new(ENEMY_LONGLEG , 04, 02),
-            new(ENEMY_TALL_SHROOM, 02, 7),
-        }),
-        new(50,new SpawnData[]{
-            new(ENEMY_SPINDA, 03, 02),
-            new(ENEMY_BRAIN, 07, 02),
-        }),
-        new(50,new SpawnData[]{
-            new(ENEMY_SPINDA, 06, 02),
-            new(ENEMY_RUNNER, 06, 02),
-        }),
-        new(50,new SpawnData[]{
-            new(ENEMY_SPINDA, 06, 02),
-            new(ENEMY_TALL_SOFTHEAD, 02, 10),
-            new(ENEMY_BRAIN, 01, 01),
+        new(new(ENEMY_TALLSOFTHEAD)), //BOSS: TALLSOFTHEAD
+        new(60,new SpawnData[]{
+            new(ENEMY_LONGLEG, 2),
+            new(ENEMY_TALLSHROOM__, 3),
         }),
         new(60,new SpawnData[]{
-            new(ENEMY_THIN_SPINDA, 07, 02),
-            new(ENEMY_RUNNER, 7, 8),
+            new(ENEMY_SPINDA_, 1),
+            new(ENEMY_BRAIN__, 4),
         }),
         new(60,new SpawnData[]{
-            new(40,ENEMY_THIN_SPINDA, 07, 02),
-            new(ENEMY_TALL_SPINDA, 02, 7),
-            new(ENEMY_BRAIN, 01, 04),
-        }),
-        new(1,new SpawnData[]{
-            new(ENEMY_GIANT_EYE, 01, 3000),
+            new(ENEMY_SPINDA_, 3),
+            new(ENEMY_RUNNER_, 3),
         }),
         new(60,new SpawnData[]{
-            new(ENEMY_RUNNER, 08, 1),
-            new(ENEMY_BRAIN, 07, 1),
+            new(ENEMY_SPINDA_, 3),
+            new(ENEMY_TALLSOFTHEAD, 2, 10),
+            new(ENEMY_BRAIN__, 1),
         }),
         new(60,new SpawnData[]{
-            new(ENEMY_TALL_SHROOM, 07, 01),
-            new(20,ENEMY_THIN_SPINDA, 05, 01),
-            new(ENEMY_TALL_SOFTHEAD, 03, 10),
-            new(ENEMY_TALL_SPINDA, 03, 10),
+            new(ENEMY_THIN_SPINDA_, 4),
+            new(ENEMY_RUNNER_, 3, 4),
         }),
         new(60,new SpawnData[]{
-            new(ENEMY_TALL_SOFTHEAD, 10, 02),
-            new(ENEMY_TALL_SPINDA, 10, 02),
-            new(ENEMY_RUNNER, 01, 10),
+            new(ENEMY_THIN_SPINDA_, 7, 2),
+            new(ENEMY_TALL_SPINDA_, 2, 7),
+            new(ENEMY_BRAIN__, 1, 4),
         }),
-        new(1,new SpawnData[]{
-            new(ENEMY_GIANT_FACE, 01, 3000),
+        new(new(ENEMY_GIANT_EYE___)), //BOSS: GIANT EYE
+        new(60,new SpawnData[]{
+            new(ENEMY_RUNNER_, 7),
+            new(ENEMY_BRAIN__, 6),
         }),
+        new(60,new SpawnData[]{
+            new(ENEMY_TALLSHROOM__, 7),
+            new(20,ENEMY_THIN_SPINDA_, 5, 1),
+            new(ENEMY_TALLSOFTHEAD, 3, 10),
+            new(ENEMY_TALL_SPINDA_, 3, 10),
+        }),
+        new(60,new SpawnData[]{
+            new(ENEMY_TALLSOFTHEAD, 5),
+            new(ENEMY_TALL_SPINDA_, 5),
+            new(ENEMY_RUNNER_, 1, 10),
+        }),
+        new(new(ENEMY_GIANT_FACE__)), //BOSS: GIANT FACE
         new(120,new SpawnData[]{
-            new(ENEMY_GIANT_EYE, 04, 03),
-            new(ENEMY_TALL_SOFTHEAD, 04, 01),
-            new(ENEMY_TALL_SPINDA, 04, 01),
+            new(ENEMY_GIANT_EYE___, 4, 3),
+            new(ENEMY_TALLSOFTHEAD, 4),
+            new(ENEMY_TALL_SPINDA_, 4),
         }),
         new(60,new SpawnData[]{
-            new(ENEMY_GIANT_EYE, 04, 01),
-            new(ENEMY_TALL_SOFTHEAD, 01, 01),
-            new(ENEMY_TALL_SPINDA, 10, 01),
-            new(ENEMY_GIANT_FACE, 04, 01),
+            new(ENEMY_GIANT_EYE___, 04),
+            new(ENEMY_TALLSOFTHEAD, 01),
+            new(ENEMY_TALL_SPINDA_, 10),
+            new(ENEMY_GIANT_FACE__, 04),
         }),
 
     };
@@ -143,6 +131,8 @@ public partial class EnemySpawner : Node2D {
                 continue;
             }
             data.delaycounter = data.wdelay - 1;
+
+            //MakeRoomForXEntity(data.wsize);
             for (int counter = 0; counter < data.wsize; counter++) {
                 var enemy_spawn = data.scene!.Instantiate<Node2D>();
                 enemy_spawn!.GlobalPosition = GetRandomPosition();
@@ -152,6 +142,7 @@ public partial class EnemySpawner : Node2D {
             }
         }
         time += 1;
+
     }
 
     readonly Random rand = new();
@@ -172,6 +163,49 @@ public partial class EnemySpawner : Node2D {
             pos.Y = norp ? vpr2.Y : -vpr2.Y;
         }
         return ppos + pos;
+    }
+
+    public Node2D[] GetXFurtherChildren(int amount) {
+        var children = GetChildren();
+
+        List<(float, Node2D)> lasts = new(amount + 1);
+        foreach (var pchild in children) {
+            if (pchild is not Node2D) {
+                continue;
+            }
+            Node2D child = (Node2D)pchild;
+            float len = child.GlobalPosition.DistanceSquaredTo(player!.GlobalPosition);
+            int it = 0;
+            foreach (var (olen, ochild) in lasts) {
+                if (olen < len) {
+                    break;
+                }
+                it++;
+            }
+            lasts.Insert(it, (len, child));
+            if (amount < lasts.Count) {
+                lasts.RemoveAt(lasts.Count - 1);
+            }
+        }
+
+        Node2D[] rtn = new Node2D[lasts.Count];
+        int it2 = 0;
+        foreach (var (_, child) in lasts) {
+            rtn[it2] = child;
+            it2++;
+        }
+
+        return rtn;
+    }
+
+    public void MakeRoomForXEntity(int amount) {
+        if ((GetChildCount() + amount) < MAX_ENEMY_AMOUNT) {
+            return;
+        }
+        Node2D[] nodes = GetXFurtherChildren(amount);
+        foreach (Node2D node in nodes) {
+            node.QueueFree();
+        }
     }
 
 

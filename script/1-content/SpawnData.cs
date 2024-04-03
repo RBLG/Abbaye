@@ -12,8 +12,12 @@ public class SpawnData {
 
     public int delaycounter = 0;
 
+    public SpawnData(PackedScene nscene) :
+        this(nscene, 1) { }
+    public SpawnData(PackedScene nscene, int nwsize) :
+        this(nscene, nwsize, 1) { }
     public SpawnData(PackedScene nscene, int nwsize, int nwdelay) :
-        this(0, 99999, nscene, nwsize, nwdelay) { }
+        this(99999, nscene, nwsize, nwdelay) { }
     public SpawnData(int ntend, PackedScene nscene, int nwsize, int nwdelay) :
         this(0, ntend, nscene, nwsize, nwdelay) { }
     public SpawnData(int ntstart, int ntend, PackedScene nscene, int nwsize, int nwdelay) {
@@ -32,10 +36,9 @@ public class SpawnRound {
     public readonly int duration;
     public readonly SpawnData[] datas;
 
-    public SpawnRound(int ndur) : this(ndur, Array.Empty<SpawnData>()) {
+    public SpawnRound(SpawnData ninfo) : this(1, new SpawnData[] { ninfo }) { }
 
-    }
-    public SpawnRound(int ndur, params SpawnData[] ninfos) {
+    public SpawnRound(int ndur, SpawnData[] ninfos) {
         duration = ndur;
         datas = ninfos;
     }

@@ -16,7 +16,6 @@ script = ExtResource("1_i6hvs")
 
 [node name="snd_lose" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("1_8op1r")
-autoplay = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
 process_mode = 3

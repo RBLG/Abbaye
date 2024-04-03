@@ -14,8 +14,12 @@ radius = 4.0
 radius = 4.0
 
 [node name="Enemy" instance=ExtResource("1_ix5o8")]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("2_8xwb2")
 speed = 40.0
+max_dir_variation = 0.1
+hp = 1
 anim_duration = 0.3
 right_looking = true
 

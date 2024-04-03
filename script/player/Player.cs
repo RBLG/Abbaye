@@ -7,8 +7,10 @@ using System.Collections.Generic;
 
 namespace Abbaye.script;
 public partial class Player : CharacterBody2D {
-    [Export]
-    public float Speed = 70f;
+
+    public const float SPEED = 80f;
+
+    public float Speed = SPEED;
     public int HpMax = 100;
     public int Hp = 100;
     public Sprite2D? charsprite;

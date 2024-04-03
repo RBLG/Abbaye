@@ -4,16 +4,17 @@ using System;
 namespace Abbaye.script;
 public partial class XpFairy : Enemy {
 
-	Timer? dtimer;
+    Timer? dtimer;
 
-	public override void _Ready() {
-		base._Ready();
-		dtimer = GetNode<Timer>("DeathTimer");
-		dtimer.Timeout += OnLifeTimeout;
-	}
+    public override void _Ready() {
+        base._Ready();
+        dtimer = GetNode<Timer>("DeathTimer");
+        dtimer.WaitTime += GD.RandRange(0, 1d);
+        dtimer.Timeout += OnLifeTimeout;
+    }
 
-	public void OnLifeTimeout() {
+    public void OnLifeTimeout() {
 
-		OnHurtboxHurt(9999);
-	}
+        OnHurtboxHurt(9999);
+    }
 }
