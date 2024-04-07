@@ -13,12 +13,13 @@ size = Vector2(14, 59)
 radius = 10.0499
 
 [node name="Enemy" instance=ExtResource("1_5q2d4")]
-speed = 15.0
 hp = 50
 damage = 15
 xp_total = 50
 orb_amount = 5
+score_value = 5
 anim_duration = 1.0
+run_radius_malus = 70
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(2, -31)

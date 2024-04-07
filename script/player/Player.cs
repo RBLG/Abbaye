@@ -27,6 +27,10 @@ public partial class Player : CharacterBody2D {
 
     public AttackPattern pattern = new();
 
+    public double score = 0;
+    public double multiplier = 1;
+    public double maxmult = 1;
+    public double time = 0;
 
     public static readonly PackedScene bullet_base = GD.Load<PackedScene>("res://scenes/bullets/default_bullet.tscn");
 
@@ -69,6 +73,7 @@ public partial class Player : CharacterBody2D {
         collectarea.AreaEntered += OnXpCollectAreaEntered;
 
         astimer.Timeout += NextOnPattern;
+        astimer.Timeout += () => { time += astimer.WaitTime; };
         aswtimer.Timeout += NewAttackWave;
 
         this.OnReadyXpCrystalSettup();
@@ -102,6 +107,7 @@ public partial class Player : CharacterBody2D {
         charsprite!.UpdateAlpha(0);
         hurtimer!.Start();
         snd_hurt!.Play();
+        Multiplier = 1;
         Damagable = false;
         SetDeferred("Damagable", true); // HACK because it would proc twice/four time per actual collision
         if (Hp < 0) {
@@ -113,14 +119,34 @@ public partial class Player : CharacterBody2D {
 
     public void OnDeath() {
         dead = true;
-        Control ds = death_screen.Instantiate<Control>();
+        DeathScreen ds = death_screen.Instantiate<DeathScreen>();
+        ds.SetScores((long)score, time, maxmult);
         GetTree().Paused = true;
         guilayer!.AddChild(ds);
     }
 
-
     public void UpdateCharWellbeing() {
         charsprite!.UpdateAlpha(((float)Hp) / HpMax);
+    }
+
+    public void ReceiveScore(int nscore) {
+        Score += (int)(nscore * multiplier);
+        Multiplier *= 1.001f;
+    }
+
+    public double Multiplier {
+        get => multiplier; set {
+            multiplier = value;
+            maxmult = Mathf.Max(maxmult, multiplier);
+            //TODO update gui
+        }
+    }
+
+    public double Score {
+        get => score; set {
+            score = value;
+            //TODO update gui
+        }
     }
 
     //////////////////////////////// ATTACK ///////////////////////////////
@@ -244,5 +270,9 @@ public partial class Player : CharacterBody2D {
         crystalgreysprite!.SelfModulate = color;
     }
     #endregion xp
+
+
+
+
 }
 

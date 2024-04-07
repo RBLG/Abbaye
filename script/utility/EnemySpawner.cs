@@ -21,6 +21,8 @@ public partial class EnemySpawner : Node2D {
     public static readonly PackedScene ENEMY_TALL_SPINDA_ = GD.Load<PackedScene>("res://scenes/enemies/tall_spinda.tscn");
     public static readonly PackedScene ENEMY_GIANT_EYE___ = GD.Load<PackedScene>("res://scenes/enemies/giant_eye.tscn");
     public static readonly PackedScene ENEMY_GIANT_FACE__ = GD.Load<PackedScene>("res://scenes/enemies/giant_face.tscn");
+    public static readonly PackedScene ENEMY_SMALL_EYE___ = GD.Load<PackedScene>("res://scenes/enemies/small_eye.tscn");
+    public static readonly PackedScene ENEMY_GOD_FACE____ = GD.Load<PackedScene>("res://scenes/enemies/god_face.tscn");
 
     public SpawnRound[] rounds = new SpawnRound[] {
         new(10,new SpawnData[]{
@@ -30,12 +32,11 @@ public partial class EnemySpawner : Node2D {
             new(ENEMY_FAIRY__, 1, 6),
             new(ENEMY_LONGLEG, 1),
         }),
-        new(new(ENEMY_SPINDA_, 2)),
+        new(new(ENEMY_SPINDA_, 2,999)),
         new(60,new SpawnData[]{
             new(ENEMY_LONGLEG, 1),
             new(ENEMY_BRAIN__, 3),
         }),
-        new(new(ENEMY_TALLSOFTHEAD)), //BOSS: TALLSOFTHEAD
         new(60,new SpawnData[]{
             new(ENEMY_LONGLEG, 2),
             new(ENEMY_TALLSHROOM__, 3),
@@ -43,6 +44,7 @@ public partial class EnemySpawner : Node2D {
         new(60,new SpawnData[]{
             new(ENEMY_SPINDA_, 1),
             new(ENEMY_BRAIN__, 4),
+            new(20,21,ENEMY_TALLSOFTHEAD,1,999), //BOSS: TALLSOFTHEAD (3min20)
         }),
         new(60,new SpawnData[]{
             new(ENEMY_SPINDA_, 3),
@@ -60,35 +62,53 @@ public partial class EnemySpawner : Node2D {
         new(60,new SpawnData[]{
             new(ENEMY_THIN_SPINDA_, 7, 2),
             new(ENEMY_TALL_SPINDA_, 2, 7),
-            new(ENEMY_BRAIN__, 1, 4),
         }),
-        new(new(ENEMY_GIANT_EYE___)), //BOSS: GIANT EYE
         new(60,new SpawnData[]{
-            new(ENEMY_RUNNER_, 7),
-            new(ENEMY_BRAIN__, 6),
+            new(ENEMY_RUNNER_, 8),
+            new(ENEMY_BRAIN__, 5),
+            new(20,21,ENEMY_GIANT_EYE___,1,999), //BOSS: GIANT EYE (8min20)
+            new(20,21,ENEMY_SMALL_EYE___,3,999),
         }),
         new(60,new SpawnData[]{
             new(ENEMY_TALLSHROOM__, 7),
             new(20,ENEMY_THIN_SPINDA_, 5, 1),
             new(ENEMY_TALLSOFTHEAD, 3, 10),
-            new(ENEMY_TALL_SPINDA_, 3, 10),
         }),
         new(60,new SpawnData[]{
             new(ENEMY_TALLSOFTHEAD, 5),
             new(ENEMY_TALL_SPINDA_, 5),
-            new(ENEMY_RUNNER_, 1, 10),
         }),
-        new(new(ENEMY_GIANT_FACE__)), //BOSS: GIANT FACE
-        new(120,new SpawnData[]{
+        new(60,new SpawnData[]{
+            new(ENEMY_THIN_SPINDA_, 8),
+            new(ENEMY_SMALL_EYE___, 5),
+            new(20,21,ENEMY_GIANT_FACE__,1,999), //BOSS: GIANT FACE (11min20)
+        }),
+        new(60,new SpawnData[]{
             new(ENEMY_GIANT_EYE___, 4, 3),
             new(ENEMY_TALLSOFTHEAD, 4),
             new(ENEMY_TALL_SPINDA_, 4),
         }),
         new(60,new SpawnData[]{
-            new(ENEMY_GIANT_EYE___, 04),
-            new(ENEMY_TALLSOFTHEAD, 01),
-            new(ENEMY_TALL_SPINDA_, 10),
-            new(ENEMY_GIANT_FACE__, 04),
+            new(ENEMY_GIANT_EYE___, 2),
+            new(ENEMY_SMALL_EYE___, 8),
+        }),
+        new(60,new SpawnData[]{
+            new(ENEMY_GIANT_EYE___, 3),
+            new(ENEMY_TALL_SPINDA_, 8),
+            new(20,21,ENEMY_GOD_FACE____,1,999), //BOSS: GOD FACE (14min20)
+        }),
+        new(60,new SpawnData[]{
+            new(ENEMY_GIANT_EYE___, 6),
+            new(ENEMY_GIANT_FACE__, 5),
+        }),
+        new(60,new SpawnData[]{
+            new(ENEMY_GIANT_FACE__, 4),
+            new(ENEMY_SMALL_EYE___, 8),
+        }),
+        new(60,new SpawnData[]{ // (18min)
+            new(ENEMY_GIANT_EYE___, 4),
+            new(ENEMY_GIANT_FACE__, 6),
+            new(ENEMY_TALL_SPINDA_, 6),
         }),
 
     };

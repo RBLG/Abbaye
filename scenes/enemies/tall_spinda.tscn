@@ -18,7 +18,9 @@ damage = 15
 xp_total = 75
 orb_amount = 3
 orb_drop_range = 10
+score_value = 7
 anim_duration = 1.0
+run_radius_malus = 70
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(9, -23)

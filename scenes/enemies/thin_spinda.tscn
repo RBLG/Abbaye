@@ -13,6 +13,7 @@ size = Vector2(9, 37)
 speed = 35.0
 hp = 20
 xp_total = 20
+score_value = 4
 anim_duration = 0.3
 
 [node name="Sprite2D" parent="." index="0"]

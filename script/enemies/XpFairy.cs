@@ -9,7 +9,7 @@ public partial class XpFairy : Enemy {
     public override void _Ready() {
         base._Ready();
         dtimer = GetNode<Timer>("DeathTimer");
-        dtimer.WaitTime += GD.RandRange(0, 1d);
+        dtimer.WaitTime += GD.RandRange(0, 2d);
         dtimer.Timeout += OnLifeTimeout;
     }
 

@@ -17,6 +17,7 @@ speed = 25.0
 hp = 20
 xp_total = 10
 orb_amount = 2
+score_value = 2
 anim_duration = 0.5
 
 [node name="Sprite2D" parent="." index="0"]

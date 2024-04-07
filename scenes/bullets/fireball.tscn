@@ -8,7 +8,6 @@ radius = 20.0
 
 [node name="DefaultBullet" instance=ExtResource("1_7p0mc")]
 speed = 50
-damage = 9
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_f3npf")

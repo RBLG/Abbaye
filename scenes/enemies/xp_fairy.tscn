@@ -47,7 +47,7 @@ shape = SubResource("CircleShape2D_jhat6")
 disabled = true
 
 [node name="DeathTimer" type="Timer" parent="." index="6"]
-wait_time = 9.0
+wait_time = 6.0
 autostart = true
 
 [editable path="Hurtbox"]

@@ -15,10 +15,12 @@ radius = 37.0135
 [node name="Enemy" instance=ExtResource("1_2iu4o")]
 hp = 400
 damage = 30
-xp_total = 300
+xp_total = 400
 orb_amount = 2
 orb_drop_range = 15
+score_value = 40
 anim_duration = 0.8
+run_radius_malus = 70
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(1, -44)

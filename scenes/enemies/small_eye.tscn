@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://k1jwqs82pyp"]
+
+[ext_resource type="PackedScene" uid="uid://ccgpxeqgewnoj" path="res://scenes/enemies/enemy.tscn" id="1_mbkln"]
+[ext_resource type="Texture2D" uid="uid://j5an27i1acem" path="res://res/enemies/small_eye.png" id="2_j1o73"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4crh8"]
+radius = 6.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7pcev"]
+size = Vector2(13, 24)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cvoor"]
+radius = 7.0
+
+[node name="Enemy" instance=ExtResource("1_mbkln")]
+speed = 40.0
+max_dir_variation = 0.06
+hp = 30
+xp_total = 20
+score_value = 5
+anim_duration = 0.2
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -8)
+texture = ExtResource("2_j1o73")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 0)
+shape = SubResource("CircleShape2D_4crh8")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0.5, -7)
+shape = SubResource("RectangleShape2D_7pcev")
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_cvoor")
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]

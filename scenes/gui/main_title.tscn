@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dmbpu5whhilqt"]
+[gd_scene load_steps=8 format=3 uid="uid://dmbpu5whhilqt"]
 
 [ext_resource type="Script" path="res://script/gui/MainTitle.cs" id="1_ev5pj"]
 [ext_resource type="Texture2D" uid="uid://ccjpjge4x6w1g" path="res://res/gui/main_background.png" id="2_h0hdu"]
 [ext_resource type="PackedScene" uid="uid://fpwqnh7j0tue" path="res://scenes/gui/custom_button.tscn" id="2_ms2jg"]
 [ext_resource type="Texture2D" uid="uid://c01a0wadsnld5" path="res://res/gui/main_title.png" id="4_y88nj"]
+[ext_resource type="Texture2D" uid="uid://b11f5yx5nkw6h" path="res://res/gui/controls.png" id="5_sv71r"]
+[ext_resource type="Texture2D" uid="uid://cwkxiiayfyjyo" path="res://res/gui/trophy_off.png" id="6_c1037"]
+[ext_resource type="Texture2D" uid="uid://dncmxve8308dl" path="res://res/gui/trophy_on.png" id="7_d6iu4"]
 
 [node name="MainTitle" type="Control"]
 layout_mode = 3
@@ -29,6 +32,7 @@ expand_mode = 3
 
 [node name="Title" type="TextureRect" parent="."]
 process_mode = 3
+texture_filter = 3
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -59,5 +63,73 @@ grow_vertical = 0
 
 [node name="Label" parent="btn_play" index="0"]
 text = "Fight"
+
+[node name="ScoreLabel" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -159.0
+offset_top = -50.0
+offset_right = -9.0
+offset_bottom = -13.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Best score: 
+0"
+horizontal_alignment = 1
+
+[node name="ControlsImg" type="TextureRect" parent="."]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = -182.0
+offset_right = 78.0
+offset_bottom = -95.0
+grow_vertical = 0
+scale = Vector2(2, 2)
+texture = ExtResource("5_sv71r")
+
+[node name="ImgTrophyOff" type="TextureRect" parent="."]
+visible = false
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -55.0
+offset_top = -92.0
+offset_right = -42.0
+offset_bottom = -76.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(2, 2)
+texture = ExtResource("6_c1037")
+
+[node name="ImgTrophyOn" type="TextureRect" parent="."]
+visible = false
+texture_filter = 3
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -55.0
+offset_top = -92.0
+offset_right = -42.0
+offset_bottom = -76.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(2, 2)
+texture = ExtResource("7_d6iu4")
 
 [editable path="btn_play"]

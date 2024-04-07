@@ -157,6 +157,7 @@ one_shot = true
 
 [node name="Hurtbox" parent="." instance=ExtResource("3_jk77i")]
 collision_mask = 4
+type = 1
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("CircleShape2D_13mwi")

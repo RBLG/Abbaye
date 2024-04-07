@@ -1,6 +1,8 @@
 using Abbaye.script;
 using Godot;
 using System;
+using System.Threading.Tasks.Sources;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Abbaye.script;
 public partial class DeathScreen : Control {
@@ -8,6 +10,8 @@ public partial class DeathScreen : Control {
     AudioStreamPlayer2D? snd_lose;
 
     Tween? tween;
+
+    public long score = 0;
 
     public static readonly PackedScene menu = GD.Load<PackedScene>("res://scenes/gui/main_title.tscn");
 
@@ -35,7 +39,25 @@ public partial class DeathScreen : Control {
     }
 
     private void OnClick() {
-        GetTree().Paused = false;
+        MainTitle.highscore = Math.Max(MainTitle.highscore, score);
         GetTree().ChangeSceneToPacked(menu);
+    }
+
+
+    public void SetScores(long nscore, double ntime, double nmaxmult) {
+        score = nscore;
+
+        int min = (int)(ntime / 60);
+        int sec = (int)(ntime % 60);
+        string mmult = nmaxmult.ToString("0.##");
+
+        string label1 = $"Time survived: \t{min}min{sec}\r\nMax multiplier: x{mmult}";
+        string label2 = $"Score: \t{nscore}";
+
+
+        Label tmlabel = GetNode<Label>("TMLabel");
+        Label scorelabel = GetNode<Label>("ScoreLabel");
+        tmlabel.Text = label1;
+        scorelabel.Text = label2;
     }
 }

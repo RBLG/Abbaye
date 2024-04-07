@@ -26,6 +26,8 @@ public partial class Enemy : CharacterBody2D {
     public int orb_amount = 1;
     [Export]
     public int orb_drop_range = 5;
+    [Export]
+    public int score_value = 1;
 
     [Export]
     public float anim_duration = 0.4f;
@@ -33,6 +35,8 @@ public partial class Enemy : CharacterBody2D {
     public int anim_len = 2;
     [Export]
     public bool right_looking = false;
+    [Export]
+    public int run_radius_malus = 0;
 
     public static readonly PackedScene xporbscene = GD.Load<PackedScene>("res://scenes/objects/xp_orb.tscn");
 
@@ -69,7 +73,7 @@ public partial class Enemy : CharacterBody2D {
         dirvar = (float)GD.RandRange(-max_dir_variation, max_dir_variation) * 2 * MathF.PI;
         speedvar = (float)GD.RandRange(1 - max_speed_variation, 1 + max_speed_variation);
         this.anim_duration *= speedvar;
-        runvar = GD.RandRange(0, 30);
+        runvar = GD.RandRange(0, 50) + GD.RandRange(0, 50);
 
         hitbox.Damage = damage;
         hurtbox.Hurt = OnHurtboxHurt;
@@ -86,16 +90,21 @@ public partial class Enemy : CharacterBody2D {
 
     public override void _PhysicsProcess(double delta) {
         if (disabled) { return; }
-        Vector2 this2targ = player!.GlobalPosition - GlobalPosition; //             // get the vector from this to the player
+        Vector2 this2targ = player!.GlobalPosition - GlobalPosition;                // get the vector from this to the player
         Vector2 dir = this2targ.Normalized();
 
-        this2targ.X *= 0.6f; //                                                     // scale X so that XY ratio is roughly screen ratio
-        float dist = Mathf.Max(Mathf.Abs(this2targ.X), Math.Abs(this2targ.Y)); //   // getting the highest absolute value between X and Y
-        dist = Mathf.Max(0, dist - 290 + runvar); //                                 // set the minimum distance from player with random margin
+        this2targ.X = Mathf.Sign(this2targ.X) * run_radius_malus * -0.5f;
+        if (0 < this2targ.Y) {
+            this2targ.Y -= run_radius_malus;
+        }
 
-        float runratio = dist * 0.02f; //                                           // get the ratio for each speed values
+        this2targ.X *= 0.5625f;                                                     // scale X so that XY ratio is roughly screen ratio
+        float dist = Mathf.Max(Mathf.Abs(this2targ.X), Math.Abs(this2targ.Y));      // getting the highest absolute value between X and Y
+        dist = Mathf.Max(0, dist - 300 + runvar);                                   // set the minimum distance from player with random margin
+
+        float runratio = dist * 0.02f;                                              // get the ratio for each speed values
         float walkratio = Mathf.Max(0, 1 - runratio);                               // |
-        float realspeed = speed * walkratio + player.Speed * runratio; //           // interpolation between defined speed and player speed (aka camera speed)
+        float realspeed = speed * walkratio + player.Speed * runratio;              // interpolation between defined speed and player speed (aka camera speed)
 
         dir = dir.Rotated(dirvar * walkratio);
         Velocity = dir * realspeed;
@@ -126,7 +135,6 @@ public partial class Enemy : CharacterBody2D {
 
         hp -= damage;
         if (hp <= 0) {
-
             disabled = true;
             dead = true;
             if (snd_enabled) {
@@ -136,15 +144,20 @@ public partial class Enemy : CharacterBody2D {
             SetDeferred("snd_enabled", true);
             CallDeferred("DropLoot");
             deathanim!.Play("Death");
+            player!.ReceiveScore(score_value);
 
             hurtbox!.QueueFree();
             hitbox!.QueueFree();
             colishape!.SetDeferred("disabled", true);
-
+            OnDeath();
             //QueueFree();
         } else {
             hitanim!.Play("Hit");
         }
+    }
+
+    protected virtual void OnDeath() {
+
     }
 
     public void DropLoot() {
@@ -165,9 +178,3 @@ public partial class Enemy : CharacterBody2D {
         }
     }
 }
-
-
-
-
-
-
