@@ -100,15 +100,19 @@ public partial class Enemy : CharacterBody2D {
 
         this2targ.X *= 0.5625f;                                                     // scale X so that XY ratio is roughly screen ratio
         float dist = Mathf.Max(Mathf.Abs(this2targ.X), Math.Abs(this2targ.Y));      // getting the highest absolute value between X and Y
-        dist = Mathf.Max(0, dist - 300 + runvar);                                   // set the minimum distance from player with random margin
+        dist = Mathf.Max(0, dist - 300 - runvar);                                   // set the minimum distance from player with random margin
 
         float runratio = dist * 0.02f;                                              // get the ratio for each speed values
         float walkratio = Mathf.Max(0, 1 - runratio);                               // |
         float realspeed = speed * walkratio + player.Speed * runratio;              // interpolation between defined speed and player speed (aka camera speed)
 
         dir = dir.Rotated(dirvar * walkratio);
-        Velocity = dir * realspeed;
-        MoveAndSlide();
+        //Velocity = dir * realspeed;
+        //MoveAndSlide();
+        var movec = dir * realspeed;
+        movec.X = (float)(movec.X * delta);
+        movec.Y = (float)(movec.Y * delta);
+        MoveAndCollide(movec);
 
         sprite!.FlipH = (dir.X < 0) ^ right_looking;
     }
@@ -163,9 +167,10 @@ public partial class Enemy : CharacterBody2D {
     public void DropLoot() {
         for (int iter = 0; iter < orb_amount; iter++) {
             XpOrb xporb = xporbscene.Instantiate<XpOrb>();
-            Vector2 rvec = new(GD.RandRange(-10, 10), GD.RandRange(-10, 10));
+            Vector2 rvec = new((float)GD.RandRange(-1d, 1d), (float)GD.RandRange(-1d, 1d));
+            rvec *= orb_drop_range;
             xporb.GlobalPosition = GlobalPosition + rvec;
-            xporb.xp = xp_total / orb_amount;
+            xporb.SetXpAmount(xp_total / orb_amount);
             lootholder!.AddChild(xporb);
         }
     }

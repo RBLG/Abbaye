@@ -28,11 +28,9 @@ position = Vector2(1, -8)
 texture = ExtResource("2_vv6ly")
 
 [node name="CollisionShape2D" parent="." index="1"]
+visible = false
 shape = SubResource("CircleShape2D_vbv4h")
 disabled = true
-
-[node name="Hurtbox" parent="." index="3"]
-monitoring = false
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(0, -6)
@@ -43,12 +41,12 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
+visible = false
 shape = SubResource("CircleShape2D_jhat6")
 disabled = true
 
 [node name="DeathTimer" type="Timer" parent="." index="6"]
 wait_time = 6.0
-autostart = true
 
 [editable path="Hurtbox"]
 [editable path="Hitbox"]

@@ -214,7 +214,7 @@ y_sort_enabled = true
 [node name="Bullets" type="Node2D" parent="Entities" groups=["Bullets"]]
 y_sort_enabled = true
 
-[node name="EnemySpawner" parent="Entities" instance=ExtResource("5_ailqt")]
+[node name="EnemySpawner" parent="Entities" groups=["enemies"] instance=ExtResource("5_ailqt")]
 
 [node name="Loot" type="Node2D" parent="Entities" groups=["loot"]]
 y_sort_enabled = true

@@ -14,14 +14,14 @@ public partial class XpOrb : Area2D {
     Tween? tween;
     Sprite2D? sprite;
     CollisionShape2D? colshape;
-    AnimationPlayer? animplayer;
+    //AnimationPlayer? animplayer;
 
 
     public override void _Ready() {
         target = this.GetFirstNodeInGroupAs<Player>("player");
         sprite = GetNode<Sprite2D>("Sprite2D");
         colshape = GetNode<CollisionShape2D>("CollisionShape2D");
-        animplayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        //animplayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
         tween = CreateTween();
         tween.TweenProperty(sprite, "frame", 5, 3).SetTrans(Tween.TransitionType.Linear);
@@ -31,7 +31,7 @@ public partial class XpOrb : Area2D {
 
     public void SetXpAmount(int nxp) {
         xp = nxp;
-        float scale = 1 + (xp * 0.01f);
+        float scale = 0.8f + (xp * 0.01f);
         Scale = new(scale, scale);
     }
 
@@ -51,7 +51,8 @@ public partial class XpOrb : Area2D {
     public int Collect() {
         colshape!.SetDeferred("monitoring", true);
         sprite!.Visible = false;
-        animplayer!.Play("XpCollected");
+        //animplayer!.Play("XpCollected");
+        QueueFree();
         return xp;
     }
 

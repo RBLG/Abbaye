@@ -25,6 +25,7 @@ public partial class EnemySpawner : Node2D {
     public static readonly PackedScene ENEMY_GOD_FACE____ = GD.Load<PackedScene>("res://scenes/enemies/god_face.tscn");
 
     public SpawnRound[] rounds = new SpawnRound[] {
+        //new(1160,new SpawnData[]{new(ENEMY_LONGLEG, 10)}),
         new(10,new SpawnData[]{
             new(ENEMY_FAIRY__, 5, 3),
         }),
@@ -163,6 +164,7 @@ public partial class EnemySpawner : Node2D {
         }
         time += 1;
 
+        //GD.Print("enemies: " + GetChildCount());
     }
 
     readonly Random rand = new();

@@ -21,6 +21,7 @@ public partial class Player : CharacterBody2D {
     public AudioStreamPlayer2D? snd_hurt;
     public AudioStreamPlayer2D? snd_cast;
     public AudioStreamPlayer2D? snd_lvl;
+    public AudioStreamPlayer2D? snd_xp;
     public Node2D? bulletroot;
     public LevelUpMenu? lvlupmenu;
     public CanvasLayer? guilayer;
@@ -79,11 +80,33 @@ public partial class Player : CharacterBody2D {
         this.OnReadyXpCrystalSettup();
     }
 
+    public long x1framecount = -9999;
+    public long x2framecount = -9999;
+    public long y1framecount = -9999;
+    public long y2framecount = -9999;
 
+    public readonly int acclen = 3;
+    public readonly float accleninv = 1 / 3f;
 
     public override void _PhysicsProcess(double delta) {
-        float x = Input.GetActionStrength("right") - Input.GetActionStrength("left");
-        float y = Input.GetActionStrength("down") - Input.GetActionStrength("up");
+        float x1 = Input.GetActionStrength("right");
+        float x2 = Input.GetActionStrength("left");
+        float y1 = Input.GetActionStrength("down");
+        float y2 = Input.GetActionStrength("up");
+        if (0 < x1) { x1framecount = Math.Clamp(x1framecount + 1, +1, +acclen); } //
+        else /*   */{ x1framecount = Math.Clamp(x1framecount - 1, -acclen, -1); }
+        if (0 < x1) { x2framecount = Math.Clamp(x2framecount + 1, +1, +acclen); } //
+        else /*   */{ x2framecount = Math.Clamp(x2framecount - 1, -acclen, -1); }
+        if (0 < x1) { y1framecount = Math.Clamp(y1framecount + 1, +1, +acclen); } //
+        else /*   */{ y1framecount = Math.Clamp(y1framecount - 1, -acclen, -1); }
+        if (0 < x1) { y2framecount = Math.Clamp(y2framecount + 1, +1, +acclen); } //
+        else /*   */{ y2framecount = Math.Clamp(y2framecount - 1, -acclen, -1); }
+        x1 *= (x1framecount - 1) * accleninv;
+
+
+
+        float x = x1 - x2;
+        float y = y1 - y2;
 
         Velocity = new Vector2(x, y).Normalized() * Speed;
 
@@ -220,6 +243,7 @@ public partial class Player : CharacterBody2D {
     private void OnReadyXpCrystalSettup() {
         crystalsprite = GetNode<Sprite2D>("CrystalSprite");
         crystalgreysprite = GetNode<Sprite2D>("%OffCrystalSprite");
+        snd_xp = GetNode<AudioStreamPlayer2D>("snd_xp");
 
         lvlsys.OnLevelUp = OnLevelUp;
         ResetShaker();
@@ -237,6 +261,7 @@ public partial class Player : CharacterBody2D {
             lvlsys.AddXp(xp);
             DoTheCrystalShake();
             UpdateLevelShine();
+            snd_xp!.Play();
         }
     }
 
